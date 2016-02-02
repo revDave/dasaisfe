@@ -1,8 +1,16 @@
 package tasks;
 
 import main.Main;
+import sun.management.Sensor;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.motor.Motor;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.utility.Delay;
+
 
 public class FollowPath extends Task {
+	private  EV3ColorSensor color;
 	// TODO find Threshold
 	private int threshold = 100;
 	
@@ -42,6 +50,7 @@ public class FollowPath extends Task {
 	
 	public int getLightSensorValue() {
 		// TODO IMPLEMENT
+		//SensorPort.S1.
 		
 		return 100;
 	}
