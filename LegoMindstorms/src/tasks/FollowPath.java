@@ -15,8 +15,7 @@ import lejos.utility.Delay;
 
 
 public class FollowPath extends Task {
-	private  EV3ColorSensor color;
-	private  EV3ColorSensor col;
+
 	// TODO find Threshold
 	private int threshold = 100;
 	
@@ -25,7 +24,7 @@ public class FollowPath extends Task {
 	
 	public FollowPath(Main main) {
 		super(main);
-		color = new EV3ColorSensor(SensorPort.S4);
+		
 	}
 
 	
@@ -58,16 +57,7 @@ public class FollowPath extends Task {
 		
 	}
 	
-	public int getColorSensorValue() {
-		color.setFloodlight(true);
-		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
-		color.setCurrentMode(color.getColorIDMode().getName());
-		
-		//color.getFloodlight();
-		//color.getRedMode();
-		
-		return color.getColorID();
-	}
+
 	
 	
 	

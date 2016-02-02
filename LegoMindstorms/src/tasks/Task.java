@@ -1,13 +1,21 @@
 package tasks;
 
 import lejos.hardware.motor.Motor;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3TouchSensor;
 import main.Main;
 
 public abstract class Task {
 	private Main main = null;
+	private  EV3ColorSensor color;
+	private EV3TouchSensor touch;
+
 	
 	public Task(Main main) {
 		this.main = main;
+		color = new EV3ColorSensor(SensorPort.S4);
+		touch = new EV3TouchSensor(SensorPort.S2);
 	}
 	
 	public void execute() {
@@ -57,5 +65,21 @@ public abstract class Task {
 		Motor.A.backward();
 		Motor.B.forward();
 	}
+	
+	public int getColorSensorValue() {
+		color.setFloodlight(true);
+		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
+		color.setCurrentMode(color.getColorIDMode().getName());
+		
+		//color.getFloodlight();
+		//color.getRedMode();
+		
+		return color.getColorID();
+	}
+	
+//	public int getTouchSensorValue() {
+//		touch.
+//		return touch.getTouchMode().;
+//	}
 
 }
