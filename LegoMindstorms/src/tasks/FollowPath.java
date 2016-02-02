@@ -26,7 +26,7 @@ public class FollowPath extends Task {
 	public FollowPath(Main main) {
 		super(main);
 		color = new EV3ColorSensor(SensorPort.S3);
-		color.setCurrentMode(color.getRedMode().getName());
+		color.setCurrentMode(color.getColorIDMode().getName());
 		color.setFloodlight(Color.RED);
 	}
 
