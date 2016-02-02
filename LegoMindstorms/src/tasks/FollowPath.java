@@ -4,6 +4,9 @@ import main.Main;
 import sun.management.Sensor;
 
 import lejos.robotics.Color;
+
+import java.sql.DriverPropertyInfo;
+
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.SensorPort;
@@ -22,6 +25,7 @@ public class FollowPath extends Task {
 	
 	public FollowPath(Main main) {
 		super(main);
+		color = new EV3ColorSensor(SensorPort.S4);
 	}
 
 	
@@ -29,12 +33,10 @@ public class FollowPath extends Task {
 	protected void specificExecute() {
 
 		// fahre gerade aus
-		if (getLightSensorValue() == Color.GRAY ) {
+		if (getColorSensorValue() == Color.GRAY ) {
 			//LCD.drawString(right, 0, 1);
-			Motor.A.setSpeed(720);
-			Motor.B.setSpeed(720);
-			Motor.A.forward();
-			Motor.B.forward();
+			driveForward();
+			
 		//fahre nach rechts
 		} else {
 			/**
@@ -42,10 +44,9 @@ public class FollowPath extends Task {
 			LCD.drawString(left, 0, 1);				
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
-			Motor.A.setSpeed(100);
-			Motor.B.setSpeed(200);
-			Motor.A.forward();
-			Motor.B.forward();
+			// grad noch einstellen
+			rotateRight(10);
+
 		}
 
 		try {
@@ -57,8 +58,11 @@ public class FollowPath extends Task {
 		
 	}
 	
-	public int getLightSensorValue() {
-		color = new EV3ColorSensor(SensorPort.S4);
+	public int getColorSensorValue() {
+		color.setFloodlight(true);
+		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
+		color.setCurrentMode(color.getColorIDMode().getName());
+		
 		//color.getFloodlight();
 		//color.getRedMode();
 		
