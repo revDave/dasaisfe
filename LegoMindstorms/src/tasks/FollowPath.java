@@ -2,6 +2,8 @@ package tasks;
 
 import main.Main;
 import sun.management.Sensor;
+
+import lejos.robotics.Color;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.SensorPort;
@@ -11,6 +13,7 @@ import lejos.utility.Delay;
 
 public class FollowPath extends Task {
 	private  EV3ColorSensor color;
+	private  EV3ColorSensor col;
 	// TODO find Threshold
 	private int threshold = 100;
 	
@@ -25,18 +28,24 @@ public class FollowPath extends Task {
 	@Override
 	protected void specificExecute() {
 
-		if (getLightSensorValue() > threshold) {
-			/**	
-			// On white, turn right
-			LCD.drawString(right, 0, 1);
-			MotorPort.B.controlMotor(0,stop);
-			MotorPort.C.controlMotor(power, forward);**/
+		// fahre gerade aus
+		if (getLightSensorValue() == Color.GRAY ) {
+			//LCD.drawString(right, 0, 1);
+			Motor.A.setSpeed(720);
+			Motor.B.setSpeed(720);
+			Motor.A.forward();
+			Motor.B.forward();
+		//fahre nach rechts
 		} else {
 			/**
 			// On black, turn left
 			LCD.drawString(left, 0, 1);				
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
+			Motor.A.setSpeed(100);
+			Motor.B.setSpeed(200);
+			Motor.A.forward();
+			Motor.B.forward();
 		}
 
 		try {
@@ -49,10 +58,11 @@ public class FollowPath extends Task {
 	}
 	
 	public int getLightSensorValue() {
-		// TODO IMPLEMENT
-		//SensorPort.S1.
+		color = new EV3ColorSensor(SensorPort.S4);
+		//color.getFloodlight();
+		//color.getRedMode();
 		
-		return 100;
+		return color.getColorID();
 	}
 	
 	
