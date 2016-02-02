@@ -25,7 +25,9 @@ public class FollowPath extends Task {
 	
 	public FollowPath(Main main) {
 		super(main);
-		color = new EV3ColorSensor(SensorPort.S4);
+		color = new EV3ColorSensor(SensorPort.S3);
+		color.setCurrentMode(color.getRedMode().getName());
+		color.setFloodlight(Color.RED);
 	}
 
 	
@@ -33,9 +35,12 @@ public class FollowPath extends Task {
 	protected void specificExecute() {
 
 		// fahre gerade aus
-		if (getColorSensorValue() == Color.GRAY ) {
-			//LCD.drawString(right, 0, 1);
+		int col = getColorSensorValue();
+		LCD.drawInt(col, 4, 4);
+		if (col == Color.RED) {
 			driveForward();
+			Delay.msDelay(300);
+			stop();
 			
 		//fahre nach rechts
 		} else {
@@ -59,9 +64,7 @@ public class FollowPath extends Task {
 	}
 	
 	public int getColorSensorValue() {
-		color.setFloodlight(true);
 		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
-		color.setCurrentMode(color.getColorIDMode().getName());
 		
 		//color.getFloodlight();
 		//color.getRedMode();

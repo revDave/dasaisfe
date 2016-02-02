@@ -13,31 +13,32 @@ public class LegoTest {
 	public static void main(String[] args) {
 		//LCD.drawString("Lego Test", 0, 4);
 		
+//		
+//		// Fahrtest
+//		Motor.A.setSpeed(720);
+//		Motor.B.setSpeed(720);
+//		//Motor.C.setSpeed(360);
+//		
+//		Motor.A.backward();
+//		Motor.B.backward();
+//		
+//		//Motor.C.forward();
+//		Delay.msDelay(20000);
+//		//Motor.C.stop();
+//		//Motor.C.backward();
+//		//Delay.msDelay(500);
+//		//Motor.C.stop();
+//		
+//		//Delay.msDelay(500);
+//		
+//		Motor.A.stop();
+//		Motor.B.stop();
 		
-		// Fahrtest
-		Motor.A.setSpeed(720);
-		Motor.B.setSpeed(720);
-		//Motor.C.setSpeed(360);
-		
-		Motor.A.backward();
-		Motor.B.backward();
-		
-		//Motor.C.forward();
-		Delay.msDelay(20000);
-		//Motor.C.stop();
-		//Motor.C.backward();
-		//Delay.msDelay(500);
-		//Motor.C.stop();
-		
-		//Delay.msDelay(500);
-		
-		Motor.A.stop();
-		Motor.B.stop();
 		
 		
-		
-//		FollowPath test = new FollowPath(null);
-//		// Sensortest
+		FollowPath test = new FollowPath(null);
+		test.execute();
+		// Sensortest
 //		boolean duration = true;
 //		while (duration) {
 //			

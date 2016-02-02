@@ -1,6 +1,8 @@
 package tasks;
 
 import lejos.hardware.motor.Motor;
+import lejos.hardware.Button;
+import lejos.utility.Delay;
 import main.Main;
 
 public abstract class Task {
@@ -11,9 +13,11 @@ public abstract class Task {
 	}
 	
 	public void execute() {
-		while(true) {//!Button.ESCAPE.isDown()) {
+		boolean goOn = true;
+		while(goOn) {
 			specificExecute();			
-			main.readBarcode();
+			//main.readBarcode();
+			goOn = ! Button.ESCAPE.isDown();
 		}
 	}
 	
@@ -21,7 +25,7 @@ public abstract class Task {
 	protected abstract void specificExecute();
 	
 	
-	// Roboter fährt mit 720 degrees per second vorwärts. 
+	// Roboter fï¿½hrt mit 720 degrees per second vorwï¿½rts. 
 	// Dauer muss selber festgelegt werden
 	protected void driveForward() {
 		Motor.A.setSpeed(720);
@@ -30,7 +34,7 @@ public abstract class Task {
 		Motor.B.forward();
 	}
 	
-	// Roboter fährt mit 720 degrees per second rückwärts. 
+	// Roboter fï¿½hrt mit 720 degrees per second rï¿½ckwï¿½rts. 
 	// Dauer muss selber festgelegt werden
 	protected void driveBackward() {
 		Motor.A.setSpeed(720);
@@ -38,7 +42,13 @@ public abstract class Task {
 		Motor.A.backward();
 		Motor.B.backward();
 	}
-	
+
+	// Roboter fï¿½hrt mit 720 degrees per second rï¿½ckwï¿½rts. 
+	// Dauer muss selber festgelegt werden
+	protected void stop() {
+		Motor.A.stop();
+		Motor.B.stop();
+	}
 	
 	// Roboter dreht sich um degrees nach rechts. 
 	// TODO Testen
@@ -47,6 +57,8 @@ public abstract class Task {
 		Motor.B.setSpeed(720);
 		Motor.A.forward();
 		Motor.B.backward();
+		Delay.msDelay(degrees * 20);
+		stop();
 	}
 	
 	// Roboter dreht sich um degrees nach rechts. 
@@ -56,6 +68,8 @@ public abstract class Task {
 		Motor.B.setSpeed(720);
 		Motor.A.backward();
 		Motor.B.forward();
+		Delay.msDelay(degrees * 20);
+		stop();
 	}
 
 }
