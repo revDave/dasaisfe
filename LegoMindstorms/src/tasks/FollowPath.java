@@ -1,6 +1,7 @@
 package tasks;
 
 import main.Main;
+import sensors.Movement;
 import sun.management.Sensor;
 
 import lejos.robotics.Color;
@@ -16,13 +17,12 @@ import lejos.utility.Delay;
 
 public class FollowPath extends Task {
 	private  EV3ColorSensor color;
-	private  EV3ColorSensor col;
 	// TODO find Threshold
 	private int threshold = 100;
 	
 	private int sleepDuration = 10;
 	
-	
+
 	public FollowPath(Main main) {
 		super(main);
 		color = new EV3ColorSensor(SensorPort.S3);
@@ -34,13 +34,13 @@ public class FollowPath extends Task {
 	@Override
 	protected void specificExecute() {
 
-		// fahre gerade aus
+		// drive straight forward
 		int col = getColorSensorValue();
 		LCD.drawInt(col, 4, 4);
 		if (col == Color.RED) {
-			driveForward();
+			movement.driveForward();
 			Delay.msDelay(300);
-			stop();
+			movement.stop();
 			
 		//fahre nach rechts
 		} else {
@@ -50,7 +50,7 @@ public class FollowPath extends Task {
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
 			// grad noch einstellen
-			rotateRight(10);
+			movement.rotateRight(10);
 
 		}
 
