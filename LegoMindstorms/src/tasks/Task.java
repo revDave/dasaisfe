@@ -18,6 +18,8 @@ public abstract class Task {
 		this.main = main;
 		color = new EV3ColorSensor(SensorPort.S4);
 		touch = new EV3TouchSensor(SensorPort.S2);
+		Motor.A.setSpeed(20);
+		Motor.B.setSpeed(20);
 	}
 	
 	public void execute() {
@@ -36,17 +38,13 @@ public abstract class Task {
 	// Roboter fährt mit 720 degrees per second vorwärts. 
 	// Dauer muss selber festgelegt werden
 	protected void driveForward() {
-		Motor.A.setSpeed(720);
-		Motor.B.setSpeed(720);
 		Motor.A.forward();
 		Motor.B.forward();
 	}
 	
-	// Roboter fährt mit 720 degrees per second rückwärts. 
+	// Roboter faehrt mit 720 degrees per second rueckwaerts. 
 	// Dauer muss selber festgelegt werden
 	protected void driveBackward() {
-		Motor.A.setSpeed(720);
-		Motor.B.setSpeed(720);
 		Motor.A.backward();
 		Motor.B.backward();
 	}
@@ -61,10 +59,7 @@ public abstract class Task {
 	// Roboter dreht sich um degrees nach rechts. 
 	// TODO Testen
 	protected void rotateLeft(int degrees) {
-		Motor.A.setSpeed(720);
-		Motor.B.setSpeed(720);
-		Motor.A.forward();
-		Motor.B.backward();
+		Motor.A.backward();
 		Delay.msDelay(degrees * 20);
 		stop();
 	}
@@ -72,10 +67,7 @@ public abstract class Task {
 	// Roboter dreht sich um degrees nach rechts. 
 	// TODO Testen
 	protected void rotateRight(int degrees) {
-		Motor.A.setSpeed(720);
-		Motor.B.setSpeed(720);
-		Motor.A.backward();
-		Motor.B.forward();
+		Motor.B.backward();
 		Delay.msDelay(degrees * 20);
 		stop();
 	}
@@ -90,10 +82,5 @@ public abstract class Task {
 		
 		return color.getColorID();
 	}
-	
-//	public int getTouchSensorValue() {
-//		touch.
-//		return touch.getTouchMode().;
-//	}
 
 }

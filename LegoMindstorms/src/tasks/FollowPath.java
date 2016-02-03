@@ -18,7 +18,7 @@ public class FollowPath extends Task {
 	private  EV3ColorSensor color;
 	private  EV3ColorSensor col;
 	// TODO find Threshold
-	private int threshold = 100;
+	private float threshold = (float) 0.1;
 	
 	private int sleepDuration = 10;
 	
@@ -26,8 +26,6 @@ public class FollowPath extends Task {
 	public FollowPath(Main main) {
 		super(main);
 		color = new EV3ColorSensor(SensorPort.S3);
-		color.setCurrentMode(color.getColorIDMode().getName());
-		color.setFloodlight(Color.RED);
 	}
 
 	
@@ -35,11 +33,11 @@ public class FollowPath extends Task {
 	protected void specificExecute() {
 
 		// fahre gerade aus
-		int col = getColorSensorValue();
-		LCD.drawInt(col, 4, 4);
-		if (col == Color.RED) {
+		float red = getRedSensorValue();
+		LCD.drawString(Float.toString(red), 4, 4);
+		if (red > threshold) {
 			driveForward();
-			Delay.msDelay(300);
+			Delay.msDelay(500);
 			stop();
 			
 		//fahre nach rechts
@@ -50,7 +48,11 @@ public class FollowPath extends Task {
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
 			// grad noch einstellen
-			rotateRight(10);
+			rotateRight(5);
+			red = getRedSensorValue();
+			if(red < threshold){
+				rotateLeft(13);
+			}
 
 		}
 
@@ -64,15 +66,18 @@ public class FollowPath extends Task {
 	}
 	
 	public int getColorSensorValue() {
-		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
-		
-		//color.getFloodlight();
-		//color.getRedMode();
-		
+		color.setCurrentMode(color.getColorIDMode().getName());
 		return color.getColorID();
 	}
 	
-	
+	public float getRedSensorValue() {
+		color.setCurrentMode(color.getRedMode().getName());
+		float samples[] = new float[1];
+		
+		color.getRedMode().fetchSample(samples, 0);
+		
+		return samples[0];
+	}
 	
 
 }
