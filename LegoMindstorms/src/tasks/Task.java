@@ -9,30 +9,26 @@ import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import main.Main;
 import sensors.ColorSensor;
+import sensors.DistanceSensor;
 import sensors.Movement;
 import sensors.TactileSensor;
 
 public abstract class Task {
 	private Main main = null;
-	private  EV3ColorSensor color;
-	private EV3TouchSensor touchLeft;
-	private EV3TouchSensor touchRight;
-	private EV3UltrasonicSensor distance;
+
     protected Movement movement = null;
     protected ColorSensor colorSensor = null;
     protected TactileSensor tactileSensor = null;
+    protected DistanceSensor distanceSensor = null;
     
 	public Task(Main main) {
 		this.main = main;
-		color = new EV3ColorSensor(SensorPort.S4);
-		distance = new EV3UltrasonicSensor(SensorPort.S3);
-		touchLeft = new EV3TouchSensor(SensorPort.S1);
-		touchRight = new EV3TouchSensor(SensorPort.S2);
+
 		movement = new Movement();
 		colorSensor = new ColorSensor();
 		tactileSensor = new TactileSensor();
-		Motor.A.setSpeed(20);
-		Motor.B.setSpeed(20);
+		distanceSensor = new DistanceSensor();
+
 	}
 	
 	public void execute() {

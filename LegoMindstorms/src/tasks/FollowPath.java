@@ -21,15 +21,13 @@ public class FollowPath extends Task {
 		super(main);
 		movement.setSpeeds(15, 360);
 		// Set sensor mode
-		color.setCurrentMode(color.getRedMode().getName());
+
 	}
 	
 	@Override
 	protected void specificExecute() {
 		// Get read from sensor
-		float samples[] = new float[1];
-		color.getRedMode().fetchSample(samples, 0);
-		float red = samples[0];
+		float red = colorSensor.getRedSensorValue();
 		error = red - offset;
 		integral = (2/3) * integral + error;
 		derivative = lastError - error;
