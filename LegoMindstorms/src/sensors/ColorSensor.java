@@ -12,13 +12,18 @@ public class ColorSensor {
 	
 	public int getColorSensorValue() {
 		color.setFloodlight(true);
-		//LCD.drawString(color.getColorIDMode().getName(), 0, 4);
 		color.setCurrentMode(color.getColorIDMode().getName());
 		
-		//color.getFloodlight();
-		//color.getRedMode();
-		
 		return color.getColorID();
+	}
+	
+	public float getRedSensorValue() {
+		color.setCurrentMode(color.getRedMode().getName());
+		float samples[] = new float[1];
+		
+		color.getRedMode().fetchSample(samples, 0);
+		
+		return samples[0];
 	}
 	
 }

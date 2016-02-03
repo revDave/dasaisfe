@@ -1,6 +1,7 @@
 package tasks;
 
 import main.Main;
+import sensors.Movement;
 import sun.management.Sensor;
 
 import lejos.robotics.Color;
@@ -16,29 +17,31 @@ import lejos.utility.Delay;
 
 public class FollowPath extends Task {
 	private  EV3ColorSensor color;
-	private  EV3ColorSensor col;
 	// TODO find Threshold
 	private float threshold = (float) 0.1;
 	
 	private int sleepDuration = 10;
 	
 	
+
 	public FollowPath(Main main) {
 		super(main);
 		color = new EV3ColorSensor(SensorPort.S3);
+		color.setCurrentMode(color.getColorIDMode().getName());
+		color.setFloodlight(Color.RED);
 	}
 
 	
 	@Override
 	protected void specificExecute() {
-
-		// fahre gerade aus
-		float red = getRedSensorValue();
-		LCD.drawString(Float.toString(red), 4, 4);
-		if (red > threshold) {
-			driveForward();
-			Delay.msDelay(500);
-			stop();
+		float red = 0;
+		// drive straight forward
+		int col = colorSensor.getColorSensorValue();
+		LCD.drawInt(col, 4, 4);
+		if (col == Color.RED) {
+			movement.driveForward();
+			Delay.msDelay(300);
+			movement.stop();
 			
 		//fahre nach rechts
 		} else {
@@ -48,10 +51,10 @@ public class FollowPath extends Task {
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
 			// grad noch einstellen
-			rotateRight(5);
-			red = getRedSensorValue();
+			movement.rotateRight(5);
+			red = colorSensor.getRedSensorValue();
 			if(red < threshold){
-				rotateLeft(13);
+				movement.rotateLeft(13);
 			}
 
 		}
@@ -65,19 +68,11 @@ public class FollowPath extends Task {
 		
 	}
 	
-	public int getColorSensorValue() {
-		color.setCurrentMode(color.getColorIDMode().getName());
-		return color.getColorID();
-	}
+
 	
-	public float getRedSensorValue() {
-		color.setCurrentMode(color.getRedMode().getName());
-		float samples[] = new float[1];
-		
-		color.getRedMode().fetchSample(samples, 0);
-		
-		return samples[0];
-	}
+
+	
+	
 	
 
 }
