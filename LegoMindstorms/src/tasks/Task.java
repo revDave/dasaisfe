@@ -10,6 +10,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import main.Main;
 import sensors.ColorSensor;
 import sensors.Movement;
+import sensors.TactileSensor;
 
 public abstract class Task {
 	private Main main = null;
@@ -19,7 +20,8 @@ public abstract class Task {
 	private EV3UltrasonicSensor distance;
     protected Movement movement = null;
     protected ColorSensor colorSensor = null;
-	
+    protected TactileSensor tactileSensor = null;
+    
 	public Task(Main main) {
 		this.main = main;
 		color = new EV3ColorSensor(SensorPort.S4);
@@ -28,6 +30,7 @@ public abstract class Task {
 		touchRight = new EV3TouchSensor(SensorPort.S2);
 		movement = new Movement();
 		colorSensor = new ColorSensor();
+		tactileSensor = new TactileSensor();
 		Motor.A.setSpeed(20);
 		Motor.B.setSpeed(20);
 	}
