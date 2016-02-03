@@ -1,5 +1,6 @@
 package main;
 
+import tasks.ChainBridge;
 import tasks.Labyrinth;
 import tasks.Task;
 
@@ -15,12 +16,12 @@ public class Main {
 	
 	
 	public void readBarcode() {
-		String readCode = "something";
+		String readCode = "1";
 		
 		Task task = null;
 		
 		switch(readCode) {
-			case "1" : task = new Labyrinth(this);
+			case "1" : task = new ChainBridge(this);
 		
 		}
 		
