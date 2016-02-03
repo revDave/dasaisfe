@@ -17,11 +17,11 @@ import lejos.utility.Delay;
 
 public class FollowPath extends Task {
 	private  EV3ColorSensor color;
-	private  EV3ColorSensor col;
 	// TODO find Threshold
 	private float threshold = (float) 0.1;
 	
 	private int sleepDuration = 10;
+	
 	
 
 	public FollowPath(Main main) {
@@ -34,9 +34,9 @@ public class FollowPath extends Task {
 	
 	@Override
 	protected void specificExecute() {
-
+		float red = 0;
 		// drive straight forward
-		int col = getColorSensorValue();
+		int col = colorSensor.getColorSensorValue();
 		LCD.drawInt(col, 4, 4);
 		if (col == Color.RED) {
 			movement.driveForward();
@@ -51,10 +51,10 @@ public class FollowPath extends Task {
 			MotorPort.B.controlMotor(power, forward);
 			MotorPort.C.controlMotor(0,stop);		**/
 			// grad noch einstellen
-			rotateRight(5);
-			red = getRedSensorValue();
+			movement.rotateRight(5);
+			red = colorSensor.getRedSensorValue();
 			if(red < threshold){
-				rotateLeft(13);
+				movement.rotateLeft(13);
 			}
 
 		}
@@ -68,19 +68,9 @@ public class FollowPath extends Task {
 		
 	}
 	
-	public int getColorSensorValue() {
-		color.setCurrentMode(color.getColorIDMode().getName());
-		return color.getColorID();
-	}
+
 	
-	public float getRedSensorValue() {
-		color.setCurrentMode(color.getRedMode().getName());
-		float samples[] = new float[1];
-		
-		color.getRedMode().fetchSample(samples, 0);
-		
-		return samples[0];
-	}
+
 	
 	
 	
