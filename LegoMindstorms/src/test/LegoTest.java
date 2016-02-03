@@ -7,7 +7,7 @@ import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.utility.Delay;
 import tasks.FollowPath;
-
+import lejos.robotics.navigation.DifferentialPilot;
 
 public class LegoTest {
 	public static void main(String[] args) {
@@ -36,8 +36,8 @@ public class LegoTest {
 		
 		
 		
-		FollowPath test = new FollowPath(null);
-		test.execute();
+//		FollowPath test = new FollowPath(null);
+//		test.execute();
 		// Sensortest
 //		boolean duration = true;
 //		while (duration) {
@@ -48,6 +48,18 @@ public class LegoTest {
 //			Delay.msDelay(500);
 //			duration = Button.readButtons() == 0;
 //		}
+		
+		 DifferentialPilot pilot = new DifferentialPilot(2.42f, 12.3f, Motor.B, Motor.A, true);  // parameters in cm
+		 pilot.setRotateSpeed(30);  // cm per second
+//		 pilot.travel(5);         // cm
+//		 pilot.rotate(-90);        // degree clockwise
+//		 pilot.travel(5);         // cm
+//		 pilot.rotate(-90);        // degree clockwise
+//		 pilot.travel(5);         // cm
+//		 pilot.rotate(90);        // degree counterclockwise
+//		 pilot.travel(-5);         // cm
+//		 pilot.rotate(90);        // degree counterclockwise
+		 pilot.arc(2, 180);
 	}
 	
 
