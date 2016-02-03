@@ -6,12 +6,10 @@ import main.Main;
 import sensors.DistanceSensor;
 
 public abstract class DriveThrough extends Task {
-	private DistanceSensor sensor = null;
 	private float BRIDGE_THRESHOLD = 0.01f;
 	
 	public DriveThrough(Main main) {
 		super(main);
-		sensor = new DistanceSensor();
 	}
 	
 	protected abstract boolean distanceSensorNeeded();
@@ -27,9 +25,8 @@ public abstract class DriveThrough extends Task {
 			movement.rotateLeft(20);
 		}
 		
-		// TODO getting distance correctly
 		else if(!leftPress && !rightPress && distanceSensorNeeded()) {
-			float distanceValue = 0.0f;//sensor.getDistance(distance)
+			float distanceValue = distanceSensor.getDistance();
 			
 			if(BRIDGE_THRESHOLD < distanceValue) {
 				escapeTakeDown();
