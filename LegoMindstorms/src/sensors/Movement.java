@@ -1,10 +1,10 @@
 package sensors;
 
 import lejos.hardware.motor.Motor;
+import lejos.hardware.port.MotorPort;
 import lejos.utility.Delay;
 
 public class Movement {
-
 	public Movement(){
 		
 	}
