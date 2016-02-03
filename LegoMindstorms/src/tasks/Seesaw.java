@@ -2,14 +2,13 @@ package tasks;
 
 import main.Main;
 
-public class Seesaw extends Task {
+public class Seesaw extends DriveThrough {
 	public Seesaw (Main main) {
 		super(main);
 	}
 
 	@Override
-	protected void specificExecute() {
-		// TODO Auto-generated method stub
-		
+	protected boolean distanceSensorNeeded() {
+		return true;
 	}
 }
