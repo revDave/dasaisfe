@@ -6,10 +6,18 @@ import lejos.hardware.sensor.EV3TouchSensor;
 
 public class ColorSensor {
 	private  EV3ColorSensor color;
+	private static ColorSensor colorSensor = null;
 
-	public ColorSensor(){
+	private ColorSensor(){
 		color = new EV3ColorSensor(SensorPort.S4);
 		color.setCurrentMode(color.getRedMode().getName());
+	}
+	
+	public static ColorSensor getInstance() {
+		if(colorSensor == null)
+			colorSensor = new ColorSensor();
+		
+		return colorSensor;
 	}
 	
 	public int getColorSensorValue() {

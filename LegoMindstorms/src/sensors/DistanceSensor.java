@@ -8,9 +8,18 @@ public class DistanceSensor {
 	private EV3UltrasonicSensor distanceSensor;
 	private final String DISTANCE_STRING = "Distance";
 	
+	private static DistanceSensor distance = null;
 	
-	public DistanceSensor(){
+	
+	private DistanceSensor(){
 		distanceSensor = new EV3UltrasonicSensor(SensorPort.S3);
+	}
+	
+	public static DistanceSensor getInstance() {
+		if(distance == null)
+			distance = new DistanceSensor();
+		
+		return distance;
 	}
 	
 	public float getDistance() {

@@ -9,14 +9,25 @@ public class Movement {
 	protected float speed;
 	protected NXTRegulatedMotor leftMotor;
 	protected NXTRegulatedMotor rightMotor;
+	protected NXTRegulatedMotor sensorBowMotor;
 	
-	public Movement(){
+	private static Movement movement = null;
+	
+	private Movement(){
 	    // Parameters in cm
 		// Wheel diameter, track width, left motor, right motor, drives in reverse
 		pilot = new DifferentialPilot(2.42f, 12.3f, Motor.B, Motor.A, true);
 		leftMotor = Motor.B;
 		rightMotor = Motor.A;
+		sensorBowMotor = Motor.C;
 		setSpeeds(1, 15);
+	}
+	
+	public static Movement getInstance() {
+		if(movement == null)
+			movement = new Movement();
+		
+		return movement;
 	}
 	
 	// Travel speed in wheel diameters, rotate speed in degrees
@@ -109,4 +120,13 @@ public class Movement {
 		}
 		fastMotor.endSynchronization();
 	}
+	
+	public void bowSensor() {
+		sensorBowMotor.rotate(90);
+	}
+	
+	public void unbowSensor() {
+		sensorBowMotor.rotate(-90);
+	}
+	
 }

@@ -1,12 +1,6 @@
 package tasks;
 
-import lejos.hardware.motor.Motor;
 import lejos.hardware.Button;
-import lejos.utility.Delay;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
 import main.Main;
 import sensors.ColorSensor;
 import sensors.DistanceSensor;
@@ -24,10 +18,10 @@ public abstract class Task {
 	public Task(Main main) {
 		this.main = main;
 
-		movement = new Movement();
-		colorSensor = new ColorSensor();
-		tactileSensor = new TactileSensor();
-		distanceSensor = new DistanceSensor();
+		movement = Movement.getInstance();
+		colorSensor = ColorSensor.getInstance();
+		tactileSensor = TactileSensor.getInstance();
+		distanceSensor = DistanceSensor.getInstance();
 
 	}
 	

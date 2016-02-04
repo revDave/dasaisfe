@@ -8,9 +8,19 @@ public class TactileSensor {
 	private EV3TouchSensor touchRight;
 	private boolean pressed = true;	
 	
-	public TactileSensor(){
+	private static TactileSensor tactileSensor = null;
+	
+	private TactileSensor(){
 		touchLeft = new EV3TouchSensor(SensorPort.S1);
 		touchRight = new EV3TouchSensor(SensorPort.S2);
+	}
+	
+	public static TactileSensor getInstance() {
+		if(tactileSensor == null) {
+			tactileSensor = new TactileSensor();
+		}
+		
+		return tactileSensor;
 	}
 	
 	// Returns a string with the info if the button is pressed
