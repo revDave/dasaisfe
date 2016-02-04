@@ -1,20 +1,7 @@
 package test;
 
-import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.Motor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.utility.Delay;
-import main.Main;
-import sensors.ColorSensor;
-import sensors.Movement;
-import sensors.TactileSensor;
-import tasks.FollowPath;
 import tasks.Labyrinth;
-import lejos.robotics.navigation.DifferentialPilot;
+
 
 public class TestTactileSensor {
 	public static void main(String[] args) {

@@ -1,12 +1,6 @@
 package test;
 
-import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.utility.Delay;
-import tasks.FollowPath;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class LegoTest {

@@ -2,15 +2,17 @@ package tasks;
 
 import main.Main;
 
-// This class behaves as Labyrinth, the robot drives through the swamp by using
-// its tactile sensors
-public class Swamp extends Task {
+
+//This class behaves as DriveThrough, the robot drives through the swamp by using
+//its tactile sensors
+public class Swamp extends DriveThrough {
 	public Swamp(Main main) {
 		super(main);
 	}
 
-	// TODO: after testing labyrinth, the robot should behaves as in labyrinth
-	protected void specificExecute() {
-		
+	// TODO: after testing DriveThrough, the robot should behaves as in DriveThrough
+	@Override
+	protected boolean distanceSensorNeeded() {
+		return true;
 	}
 }
