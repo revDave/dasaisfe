@@ -98,8 +98,9 @@ public class Movement {
 		pilot.rotate(-degrees);
 	}
 
-	public void steer(double turnRate) {
+	public void steer(double turnRate, boolean reverse) {
 		// pilot.steer(turnRate);
+		setReverse(reverse);
 		double ratio = 100 - Math.abs(turnRate);
 		NXTRegulatedMotor fastMotor;
 		NXTRegulatedMotor slowMotor;
@@ -122,10 +123,10 @@ public class Movement {
 		// Set speeds according to ratio
 		fastMotor.setSpeed(speed);
 		slowMotor.setSpeed((float) (Math.abs(ratio) / 100 * speed));
-		if (isReverse()) {
-			searchBackward(ratio, fastMotor, slowMotor);
-		} else {
+		if (!isReverse()) {
 			searchReverse(ratio, fastMotor, slowMotor);
+		} else {
+			searchBackward(ratio, fastMotor, slowMotor);
 		}
 	}
 
