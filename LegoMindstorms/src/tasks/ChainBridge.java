@@ -10,11 +10,6 @@ public class ChainBridge extends DriveThrough {
 	}
 
 	@Override
-	protected void specificExecute() {
-		
-	}
-
-	@Override
 	protected boolean distanceSensorNeeded() {
 		// TODO Auto-generated method stub
 		return true;
