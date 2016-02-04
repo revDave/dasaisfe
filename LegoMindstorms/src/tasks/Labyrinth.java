@@ -1,38 +1,48 @@
 package tasks;
 
+import lejos.hardware.lcd.LCD;
 import main.Main;
 
 
 public class Labyrinth extends Task {
-	int counter = 10;
+
+	//TODO Test and fit
+	private final float LAB_THRESHOLD = 0.1f;
+	
 	public Labyrinth(Main main) {
 		super(main);
 	}
 
 	@Override
 	protected void specificExecute() {
-		movement.setSpeeds(8, 20);
-		//movement.driveForward();
+		movement.setSpeeds(10, 20);
+
 		// if robot touches wall on the right side 
 		if (tactileSensor.rightIsPressed()) {
 			movement.travel(-2);
-			movement.rotateLeft(20);
+			movement.rotateLeft(40);
 		}
 		// if robot touches wall on the left side 
 		else if (tactileSensor.leftIsPressed()) {
 			movement.travel(-2);
-			movement.rotateRight(40);
+			movement.rotateRight(20);
 		}
-		// found through the labyrinth
-		else if(counter == 0) {
-			movement.rotateRight(90);
-		}
-		// find through the labyrinth
+		// check if there is a wall on the right side by using DistanceSensor
+		// if not, drive straight forward
 		else {
-			movement.driveForward();
-			counter--;
+			float distanceValue = distanceSensor.getDistance();
+			LCD.drawString(String.valueOf(distanceValue), 0, 1);
+			
+			if(LAB_THRESHOLD < distanceValue) {
+				movement.travel(5);
+				movement.rotateLeft(90);
+				movement.travel(5);
+				
+			// drive through the labyrinth
+			} else {
+				movement.driveForward();
+			}
 		}
-		//Delay.msDelay(10);
 	}
 
 }
