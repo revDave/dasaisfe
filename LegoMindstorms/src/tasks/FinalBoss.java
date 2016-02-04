@@ -1,5 +1,6 @@
 package tasks;
 
+import lejos.utility.Delay;
 import main.Main;
 
 public class FinalBoss extends Task {
@@ -9,7 +10,10 @@ public class FinalBoss extends Task {
 
 	@Override
 	protected void specificExecute() {
-		// TODO Auto-generated method stub
+		
+		movement.bowSensor();
+		Delay.msDelay(200);
+		movement.unbowSensor();
 		
 	}
 }

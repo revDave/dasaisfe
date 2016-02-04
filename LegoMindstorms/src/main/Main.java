@@ -1,6 +1,7 @@
 package main;
 
 import tasks.ChainBridge;
+import tasks.FinalBoss;
 import tasks.Labyrinth;
 import tasks.Task;
 
@@ -21,7 +22,7 @@ public class Main {
 		Task task = null;
 		
 		switch(readCode) {
-			case "1" : task = new ChainBridge(this);
+			case "1" : task = new FinalBoss(this);
 		
 		}
 		
