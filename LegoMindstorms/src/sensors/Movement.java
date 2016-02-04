@@ -99,8 +99,9 @@ public class Movement {
 		pilot.rotate(-degrees);
 	}
 
-	public void steer(double turnRate) {
+	public void steer(double turnRate, boolean reverse) {
 		// pilot.steer(turnRate);
+		setReverse(reverse);
 		double ratio = 100 - Math.abs(turnRate);
 		NXTRegulatedMotor fastMotor;
 		NXTRegulatedMotor slowMotor;
@@ -124,9 +125,9 @@ public class Movement {
 		fastMotor.setSpeed(speed);
 		slowMotor.setSpeed((float) (Math.abs(ratio) / 100 * speed));
 		if (isReverse()) {
-			searchBackward(ratio, fastMotor, slowMotor);
-		} else {
 			searchReverse(ratio, fastMotor, slowMotor);
+		} else {
+			searchBackward(ratio, fastMotor, slowMotor);
 		}
 	}
 
@@ -153,16 +154,15 @@ public class Movement {
 	}
 
 	public void bowSensor() {
-		if (!distanceUp){
+		if (!distanceUp) {
 			sensorBowMotor.rotate(90);
 			distanceUp = true;
-			
+
 		}
 	}
 
-
 	public void unbowSensor() {
-		if (distanceUp){
+		if (distanceUp) {
 			sensorBowMotor.rotate(-90);
 			distanceUp = false;
 		}
