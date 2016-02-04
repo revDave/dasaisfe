@@ -10,7 +10,7 @@ public class Movement {
 	protected NXTRegulatedMotor leftMotor;
 	protected NXTRegulatedMotor rightMotor;
 	protected NXTRegulatedMotor sensorBowMotor;
-	
+	protected boolean distanceUp = false;
 	private static Movement movement = null;
 	
 	private Movement(){
@@ -122,11 +122,18 @@ public class Movement {
 	}
 	
 	public void bowSensor() {
-		sensorBowMotor.rotate(90);
+		if (!distanceUp){
+			sensorBowMotor.rotate(90);
+			distanceUp = true;
+			
+		}
 	}
 	
 	public void unbowSensor() {
-		sensorBowMotor.rotate(-90);
+		if (distanceUp){
+			sensorBowMotor.rotate(-90);
+			distanceUp = false;
+		}
 	}
 	
 }
