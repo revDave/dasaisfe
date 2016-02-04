@@ -2,15 +2,25 @@ package sensors;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.robotics.SampleProvider;
 
 public class ColorSensor {
 	private  EV3ColorSensor colorSensor;
+	
+	private static ColorSensor sensor = null;
 
 	public ColorSensor(){
 		colorSensor = new EV3ColorSensor(SensorPort.S4);
 		colorSensor.setCurrentMode(colorSensor.getRedMode().getName());
+	}
+	
+	public ColorSensor getInstance() {
+		if(sensor == null) {
+			sensor = new ColorSensor();
+		}
+		
+		return sensor;
+		
 	}
 	
 	public int getColorSensorValue() {
