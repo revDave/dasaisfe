@@ -31,6 +31,7 @@ public class Movement {
 		leftMotor = Motor.B;
 		rightMotor = Motor.A;
 		sensorBowMotor = Motor.C;
+		sensorBowMotor.rotateTo(0);
 		setSpeeds(1, 15);
 	}
 

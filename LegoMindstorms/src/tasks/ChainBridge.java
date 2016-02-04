@@ -2,17 +2,15 @@ package tasks;
 
 import main.Main;
 
-public class ChainBridge extends DriveThrough {
+public class ChainBridge extends TargetValueControllerTask {
+	
+	private FollowTargetValueController targetController = null;
 
 	public ChainBridge(Main main) {
 		super(main);
+		//targetController = new TargetValueController();
 		
 	}
-
-	@Override
-	protected boolean distanceSensorNeeded() {
-		// TODO Auto-generated method stub
-		return true;
-	}
 	
+		
 }
