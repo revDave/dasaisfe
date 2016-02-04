@@ -14,7 +14,7 @@ public class ColorSensor {
 		colorSensor.setCurrentMode(colorSensor.getRedMode().getName());
 	}
 	
-	public ColorSensor getInstance() {
+	public static ColorSensor getInstance() {
 		if(sensor == null) {
 			sensor = new ColorSensor();
 		}
