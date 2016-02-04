@@ -9,9 +9,9 @@ import lejos.hardware.Button;
 public class FollowPath extends Task {
 	// TODO find Threshold
 	private float offset = (float) 0.6;
-	private float Kp = 175;
+	private float Kp = 250;
 	private float Ki = 10;
-	private float Kd = 10;
+	private float Kd = -100;
 	private float error = 0;
 	private float lastError = 0;
 	private float turn = 0;
@@ -20,7 +20,7 @@ public class FollowPath extends Task {
 
 	public FollowPath(Main main) {
 		super(main);
-		movement.setSpeeds(15, 360);
+		movement.setSpeeds(3, 360);
 		
 		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();
@@ -45,12 +45,12 @@ public class FollowPath extends Task {
 		LCD.drawString("Turn: " + Float.toString(turn), 0, 5);
 
 		movement.steer(turn);
-		int delay = 175;
+		//int delay = 175;
 		//double delay = (double) (-2.11 * Math.abs(turn) + 440);
 		//double delay = (0.0001 * turn * turn - 0.04 * Math.abs(turn) + 6.3);
 		//delay = Math.exp(delay);
 		//LCD.drawString("Delay: " + Double.toString(delay), 0, 6);
-		Delay.msDelay((int) delay);
+		//Delay.msDelay((int) delay);
 		lastError = error;
 	}
 }
