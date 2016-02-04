@@ -3,29 +3,36 @@ package sensors;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.robotics.SampleProvider;
 
 public class ColorSensor {
-	private  EV3ColorSensor color;
+	private  EV3ColorSensor colorSensor;
 
 	public ColorSensor(){
-		color = new EV3ColorSensor(SensorPort.S4);
-		color.setCurrentMode(color.getRedMode().getName());
+		colorSensor = new EV3ColorSensor(SensorPort.S4);
+		colorSensor.setCurrentMode(colorSensor.getRedMode().getName());
 	}
 	
 	public int getColorSensorValue() {
-		color.setFloodlight(true);
-		color.setCurrentMode(color.getColorIDMode().getName());
+		colorSensor.setFloodlight(true);
+		colorSensor.setCurrentMode(colorSensor.getColorIDMode().getName());
 		
-		return color.getColorID();
+		return colorSensor.getColorID();
 	}
 	
 	public float getRedSensorValue() {
-		float samples[] = new float[1];
+		SampleProvider intensity = colorSensor.getRedMode();
+		float samples[] = new float[intensity.sampleSize()];
 		
-		color.getRedMode().fetchSample(samples, 0);
+		intensity.fetchSample(samples, 0);
 		
-		return samples[0];
+		float result = 0;
 		
+		for(int i = 0; i < samples.length; i++) {
+			result += samples[i];
+		}
+		
+		return result / samples.length;
 	}
 	
 }
