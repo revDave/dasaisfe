@@ -13,33 +13,31 @@ import sensors.ColorSensor;
 import sensors.Movement;
 import sensors.TactileSensor;
 import tasks.FollowPath;
+import tasks.Labyrinth;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class TestTactileSensor {
 	public static void main(String[] args) {
-		
-		EV3TouchSensor touchLeft;
-		EV3TouchSensor touchRight;
-	    TactileSensor tactileSensor = null;
-	    
-		touchLeft = new EV3TouchSensor(SensorPort.S1);
-		touchRight = new EV3TouchSensor(SensorPort.S2);
-		tactileSensor = new TactileSensor();
-
-		
+	
+	    //TactileSensor tactileSensor = null;
+		//tactileSensor = new TactileSensor();
 		
 		//LCD.drawString("Lego Test", 0, 4);
-		Delay.msDelay(5000);
+		//Delay.msDelay(5000);
 		
 		//Sensortest
-		boolean duration = true;
-		while (duration) {
-			
-			LCD.drawString("tactileSensor.rightIsPressed()", 0 , 4);
-			
-			Delay.msDelay(500);
-			duration = Button.readButtons() == 0;
-		}
+		//boolean duration = true;
+//		while (duration) {
+//
+//			//LCD.drawString(String.valueOf(tactileSensor.rightIsPressed()), 0 , 4);
+//			//LCD.drawString(String.valueOf(tactileSensor.leftIsPressed()), 0 , 5);
+//			Delay.msDelay(500);
+//			duration = Button.readButtons() == 0;
+//		}
+		
+		Labyrinth lab = new Labyrinth(null);
+		
+		lab.execute();
 
 
 		

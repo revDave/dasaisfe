@@ -6,45 +6,50 @@ import main.Main;
 import sensors.DistanceSensor;
 
 public abstract class DriveThrough extends Task {
-	private DistanceSensor sensor = null;
-	private float BRIDGE_THRESHOLD = 0.01f;
+	private final float BRIDGE_THRESHOLD = 0.01f;
+	private final int ROTATION_DEGREES = 20;
 	
 	public DriveThrough(Main main) {
 		super(main);
-		sensor = new DistanceSensor();
 	}
 	
 	protected abstract boolean distanceSensorNeeded();
 
 	@Override
 	protected void specificExecute() {
-		boolean leftPress = false;
-		boolean rightPress = false;
+		boolean leftPress = tactileSensor.leftIsPressed();
+		boolean rightPress = tactileSensor.rightIsPressed();
 		
 		if(leftPress) {
-			movement.rotateRight(20);
+			movement.rotateRight(ROTATION_DEGREES);
 		} else if(rightPress) {
-			movement.rotateLeft(20);
-		}
-		
-		// TODO getting distance correctly
-		else if(!leftPress && !rightPress && distanceSensorNeeded()) {
-			float distanceValue = 0.0f;//sensor.getDistance(distance)
+			movement.rotateLeft(ROTATION_DEGREES);
+		} else if(!leftPress && !rightPress && distanceSensorNeeded()) {
+			float distanceValue = distanceSensor.getDistance();
 			
 			if(BRIDGE_THRESHOLD < distanceValue) {
 				escapeTakeDown();
 				LCD.drawString(String.valueOf(distanceValue), 0, 1);
+			} else {
+				antiEscape();
 			}
 		} else {
 			movement.driveForward();
 		}
 		
-		Delay.msDelay(300);	
+		Delay.msDelay(50);	
 		
 	}
 	
+	
 	// ultrasonic sensor is bowed to the right
 	private void escapeTakeDown() {
-		movement.rotateLeft(20);
+		movement.rotateLeft(ROTATION_DEGREES);
+		movement.driveForward();
+	}
+	
+	private void antiEscape() {
+		movement.rotateRight(ROTATION_DEGREES / 2);
+		movement.driveForward();
 	}
 }
