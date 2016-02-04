@@ -153,16 +153,15 @@ public class Movement {
 	}
 
 	public void bowSensor() {
-		if (!distanceUp){
+		if (!distanceUp) {
 			sensorBowMotor.rotate(90);
 			distanceUp = true;
-			
+
 		}
 	}
 
-
 	public void unbowSensor() {
-		if (distanceUp){
+		if (distanceUp) {
 			sensorBowMotor.rotate(-90);
 			distanceUp = false;
 		}
