@@ -22,7 +22,7 @@ public class FollowPath extends Task {
 	private float derivative = 0;
 	private boolean iAmLost = true;
 	private int lostCount = 0;
-	private int maxLostCount = 1000;
+	private int maxLostCount = 1750;
 	private Stopwatch watch;
 
 	public FollowPath(Main main) {
@@ -33,11 +33,12 @@ public class FollowPath extends Task {
 		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();
 		LCD.clear();
+		findline(false);
 	}
 	
 	@Override
 	protected void specificExecute() {
-		findline();
+		findline(true);
 		
 		// Get read from sensor
 		float red = colorSensor.getRedSensorValue();
@@ -57,18 +58,18 @@ public class FollowPath extends Task {
 		turn = turn < -200 ? -200 : turn;
 		turn = turn > 200 ? 200 : turn;
 
-		movement.steer(turn);
+		movement.steer(turn, false);
 		lastError = error;
 		watch.reset();
 	}
 	
-	protected void findline() {
+	protected void findline(boolean reverse) {
 		if(iAmLost){
-			turn = 200;
+			turn = 160;
 			for(int i = 100; i <= 1000; i = i + 100){
 				turn *= -1;
 				watch.reset();
-				movement.steer(turn);
+				movement.steer(turn, reverse);
 				while(iAmLost && watch.elapsed() < i){
 					float red = colorSensor.getRedSensorValue();
 					if(red >= errorThreshold){
