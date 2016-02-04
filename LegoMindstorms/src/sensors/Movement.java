@@ -111,7 +111,7 @@ public class Movement {
 		// Set speeds according to ratio
 		fastMotor.setSpeed(speed);
 		slowMotor.setSpeed((float) (Math.abs(ratio) / 100 * speed));
-		if (isReverse()) {
+		if (!isReverse()) {
 			searchReverse(ratio, fastMotor, slowMotor);
 		} else {
 			searchBackward(ratio, fastMotor, slowMotor);
