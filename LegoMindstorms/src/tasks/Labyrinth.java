@@ -20,12 +20,12 @@ public class Labyrinth extends Task {
 		movement.bowSensor();
 
 		// if robot touches wall on the right side 
-		if (tactileSensor.rightIsPressed()) {
+		if (tactileSensor.frontIsPressed()) {
 			movement.travel(-2);
 			movement.rotateLeft(40);
 		}
 		// if robot touches wall on the left side 
-		else if (tactileSensor.leftIsPressed()) {
+		else if (tactileSensor.frontIsPressed()) {
 			movement.travel(-2);
 			movement.rotateRight(20);
 		}

@@ -18,24 +18,24 @@ public abstract class DriveThrough extends Task {
 
 	@Override
 	protected void specificExecute() {
-		boolean leftPress = tactileSensor.leftIsPressed();
-		boolean rightPress = tactileSensor.rightIsPressed();
+		boolean leftPress = tactileSensor.sideIsPressed();
+		//boolean rightPress = tactileSensor.rightIsPressed();
 		
 		float distanceValue = distanceSensor.getDistance();
 		
-		if(leftPress) {
-			movement.rotateRight(ROTATION_DEGREES);
-		} else if(rightPress) {
-			movement.rotateLeft(ROTATION_DEGREES);
-		} else if(!leftPress && !rightPress && distanceSensorNeeded()) {			
-			if(BRIDGE_THRESHOLD < distanceValue) {
-				escapeTakeDown();
-			} else {
-				antiEscape();
-			}
-		} else {
-			movement.driveForward();
-		}
+//		if(leftPress) {
+//			movement.rotateRight(ROTATION_DEGREES);
+//		} else if(rightPress) {
+//			movement.rotateLeft(ROTATION_DEGREES);
+//		} else if(!leftPress && !rightPress && distanceSensorNeeded()) {			
+//			if(BRIDGE_THRESHOLD < distanceValue) {
+//				escapeTakeDown();
+//			} else {
+//				antiEscape();
+//			}
+//		} else {
+//			movement.driveForward();
+//		}
 		LCD.drawString(String.valueOf(distanceValue), 0, 1);
 		Delay.msDelay(500);	
 		
