@@ -56,6 +56,8 @@ public class Movement {
 		rightMotor.synchronizeWith(syncList);
 
 		rightMotor.startSynchronization();
+		rightMotor.setSpeed(speed);
+		leftMotor.setSpeed(speed);
 		rightMotor.backward();
 		leftMotor.backward();
 		rightMotor.endSynchronization();
@@ -67,6 +69,8 @@ public class Movement {
 		NXTRegulatedMotor syncList[] = { leftMotor };
 		rightMotor.synchronizeWith(syncList);
 		rightMotor.startSynchronization();
+		rightMotor.setSpeed(speed);
+		leftMotor.setSpeed(speed);
 		rightMotor.forward();
 		leftMotor.forward();
 		rightMotor.endSynchronization();
