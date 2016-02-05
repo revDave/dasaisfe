@@ -1,18 +1,46 @@
 package tasks;
 
+import sensors.DistanceSensor;
 import main.Main;
 
-
-//This class behaves as DriveThrough, the robot drives through the swamp by using
-//its tactile sensors
-public class Swamp extends DriveThrough {
+public class Swamp extends RegulatedTask {
 	public Swamp(Main main) {
 		super(main);
+		movement.unbowSensor();
+		
+		movement.travel(10);
 	}
 
-	// TODO: after testing DriveThrough, the robot should behaves as in DriveThrough
 	@Override
-	protected boolean distanceSensorNeeded() {
-		return true;
+	public void specificExecute() {
+		super.specificExecute();
 	}
+
+	@Override
+	protected float getSensorValue() {
+		float result = DistanceSensor.getInstance().getDistance();
+		
+		if(result > 0.2) {
+			result = getOffset();
+		}
+		
+		return result;
+	}
+
+	@Override
+	protected float getOffset() {
+		return 0.08f;
+	}
+
+	@Override
+	protected float getKC() {
+		return 650;
+	}
+
+	@Override
+	protected float getLostThreshold() {
+		return 0;
+	}
+
+
 }
