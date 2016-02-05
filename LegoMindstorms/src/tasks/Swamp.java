@@ -7,7 +7,7 @@ public class Swamp extends RegulatedTask {
 	public Swamp(Main main) {
 		super(main);
 		movement.unbowSensor();
-		
+		movement.setSpeeds(6.5, 180);
 		movement.travel(10);
 	}
 
