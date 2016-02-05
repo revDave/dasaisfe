@@ -19,7 +19,7 @@ public class FollowPath extends Task {
 	private double error = 0;
 	private double turn = 0;
 	private boolean iAmLost = true;
-	private int maxLostTime = 1000;
+	private int maxLostTime = 750;
 	private float wheelSpeed = (float) 4;
 	private Stopwatch finderWatch;
 	private Stopwatch lostWatch;
@@ -69,6 +69,8 @@ public class FollowPath extends Task {
 				pid.reset();
 				return;
 			}
+		} else {
+			lostWatch.reset();
 		}
 
 		// calc pid output with the given error
