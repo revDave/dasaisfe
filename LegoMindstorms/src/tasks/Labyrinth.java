@@ -19,18 +19,14 @@ public class Labyrinth extends Task {
 		//checks if distanceSensor is up or down
 		movement.bowSensor();
 
-		// if robot touches wall on the right side 
+		// if robot touches the wall in front oh it 
 		if (tactileSensor.frontIsPressed()) {
 			movement.travel(-2);
-			movement.rotateLeft(40);
+			movement.rotateLeft(80);
 		}
-		// if robot touches wall on the left side 
-		else if (tactileSensor.frontIsPressed()) {
-			movement.travel(-2);
-			movement.rotateRight(20);
-		}
-		// check if there is a wall on the right side by using DistanceSensor
-		// if not, drive straight forward
+		// check if there is a wall on the left side by using DistanceSensor
+		// if there is a wall, drive straight forward, if not, rotate about 90 degrees 
+		// to the left
 		else {
 			float distanceValue = distanceSensor.getDistance();
 			LCD.drawString(String.valueOf(distanceValue), 0, 1);
