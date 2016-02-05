@@ -8,12 +8,29 @@ import sensors.DistanceSensor;
 
 public class Labyrinth extends RegulatedTask {
 	private final float FAR_AWAY_THRESHOLD = 0.16f;
+	private final float UTURN_THRESHOLD = 0.12f;
+	private final float AWAY_THRESHOLD = 0.1f;
+	private final float NEAR_THRESHOLD = 0.02f;
+	private final float WALL_THRESHOLD = 0.11f;
 	
 	public Labyrinth(Main main) {
 		super(main);
 	}
+	
+	// If
+	public void specificExecute() {
 
-	@Override
+		if (tactileSensor.frontIsPressed()) {
+			movement.travel(-3);
+			movement.rotateRight(80);
+			Delay.msDelay(200);
+			movement.stop();
+		} else {
+			super.specificExecute();
+		}
+	}
+
+	// Fit the sensor value, so we don´t get an infinity value
 	protected float getSensorValue() {
 		float result = DistanceSensor.getInstance().getDistance();
 		
@@ -24,12 +41,12 @@ public class Labyrinth extends RegulatedTask {
 		return result;
 	}
 
-	@Override
+	//Distance to wall in meters
 	protected float getOffset() {
-		return 0.08f;
+		return WALL_THRESHOLD;
 	}
 
-	@Override
+	//Turn of robot
 	protected float getKC() {
 		return 650;
 	}
