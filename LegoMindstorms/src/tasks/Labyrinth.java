@@ -8,7 +8,7 @@ import main.Main;
 public class Labyrinth extends Task {
 
 	//TODO Test and fit
-	private final float UTURN_THRESHOLD = 0.15f;
+	private final float UTURN_THRESHOLD = 0.12f;
 	private final float AWAY_THRESHOLD = 0.1f;
 	private final float NEAR_THRESHOLD = 0.02f;
 	
