@@ -19,7 +19,7 @@ public class FollowPath extends Task {
 	private double error = 0;
 	private double turn = 0;
 	private boolean iAmLost = true;
-	private int maxLostTime = 750;
+	private int maxLostTime = 300;
 	private float wheelSpeed = (float) 4;
 	private Stopwatch finderWatch;
 	private Stopwatch lostWatch;
