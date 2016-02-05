@@ -2,31 +2,45 @@ package tasks;
 
 import main.Main;
 import lejos.hardware.lcd.LCD;
+import control.modules.PID_Control;
 import lejos.hardware.Button;
 import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
 
 public class FollowPath extends Task {
-	private float offset = (float) 0.46;
-	private float errorThreshold = (float) 0.20;
-	private float Kc = 300;
-	private float Pc = 500;
-	private float Dt = 15;
-	private float Kp = (float) (0.6 * Kc);
-	private float Ki = (float) (2 * Kp * Dt / Pc);
-	private float Kd = (float) (Kp * Pc / (8 * Dt));
-	private float error = 0;
-	private float lastError = 0;
-	private float turn = 0;
-	private float integral = 0;
-	private float derivative = 0;
+	private double OFFSET = (double) 0.46;
+	private float ERROR_TRESHOLD = (float) 0.20;
+	private float KC = 300;
+	private float PC = 500;
+	private float DT = 15;
+	private double P_FACTOR = 0.6;
+	private double I_FACTOR = 2.;
+	private double I_CONSTANT = 2/3;
+	private double D_FACTOR = 8;
+	private double error = 0;
+	private double turn = 0;
 	private boolean iAmLost = true;
 	private int lostCount = 0;
 	private int maxLostCount = 1750;
 	private Stopwatch watch;
-
+	
+	private PID_Control pid;
 	public FollowPath(Main main) {
 		super(main);
+		
+		/** Example of the pid controller
+		    define the kc, pc and dt values, preferably as private attributes
+		    run pid.init() with the following arguments, same as above
+			@param p_factor
+			@param i_factor
+			@param i_CONSTANT
+			@param d_factor
+			
+		*/
+		pid = new PID_Control(KC, PC, DT);
+		pid.init(P_FACTOR, I_FACTOR, I_CONSTANT, D_FACTOR);
+		pid.setOffset(OFFSET);
+		
 		movement.setSpeeds(4.5, 120);
 		watch = new Stopwatch();
 		
@@ -41,25 +55,26 @@ public class FollowPath extends Task {
 		findline(true);
 		
 		// Get read from sensor
-		float red = colorSensor.getRedSensorValue();
-		error = red - offset;
-		integral = (2/3) * integral + error;
-		derivative = lastError - error;
-		if(red < errorThreshold){
+		double red = colorSensor.getRedSensorValue();
+		error = red - OFFSET;
+		if(red < ERROR_TRESHOLD){
 			lostCount++;
 			if(lostCount > maxLostCount){
 				iAmLost = true;
-				integral = 0;
-				lastError = 0;
+				
+				// reset pid control
+				pid.reset();
 				return;
 			}
 		}
-		turn = Kp * error + Ki * integral + Kd * derivative;
+		
+		// calc pid output with the given error
+		turn = pid.calcOutput(error);
+		
 		turn = turn < -200 ? -200 : turn;
 		turn = turn > 200 ? 200 : turn;
 
 		movement.steer(turn, false);
-		lastError = error;
 		watch.reset();
 	}
 	
@@ -72,7 +87,7 @@ public class FollowPath extends Task {
 				movement.steer(turn, reverse);
 				while(iAmLost && watch.elapsed() < i){
 					float red = colorSensor.getRedSensorValue();
-					if(red >= errorThreshold){
+					if(red >= ERROR_TRESHOLD){
 						iAmLost = false;
 						lostCount = 0;
 					}
