@@ -4,15 +4,15 @@ import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3TouchSensor;
 
 public class TactileSensor {
-	private EV3TouchSensor touchLeft;
-	private EV3TouchSensor touchRight;
+	private EV3TouchSensor touchFront;
+	private EV3TouchSensor touchSide;
 	private boolean pressed = true;	
 	
 	private static TactileSensor tactileSensor = null;
 	
 	private TactileSensor(){
-		touchLeft = new EV3TouchSensor(SensorPort.S1);
-		touchRight = new EV3TouchSensor(SensorPort.S2);
+		touchFront = new EV3TouchSensor(SensorPort.S1);
+		touchSide = new EV3TouchSensor(SensorPort.S2);
 	}
 	
 	public static TactileSensor getInstance() {
@@ -32,9 +32,9 @@ public class TactileSensor {
 		return samples[0];
 	}
 	
-	// gives back if the left touch sensor is pressed
-	public boolean leftIsPressed() {
-		if (getTouchSensorValue(touchLeft) == 1) {
+	// gives back if the front touch sensor is pressed
+	public boolean frontIsPressed() {
+		if (getTouchSensorValue(touchFront) == 1) {
 			pressed = true;
 			
 		} else {
@@ -44,9 +44,9 @@ public class TactileSensor {
 		return pressed;
 	}
 	
-	// gives back if the right touch sensor is pressed
-	public boolean rightIsPressed() {
-		if (getTouchSensorValue(touchRight) == 1) {
+	// gives back if the touch sensor on the left side of the robot is pressed
+	public boolean sideIsPressed() {
+		if (getTouchSensorValue(touchSide) == 1) {
 			pressed = true;
 			
 		} else {
