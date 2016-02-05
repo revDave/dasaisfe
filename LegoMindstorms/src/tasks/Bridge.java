@@ -10,6 +10,11 @@ public class Bridge extends RegulatedTask {
 		movement.bowSensor();
 		
 	}
+	
+	@Override
+	public void specificExecute() {
+		super.specificExecute();
+	}
 
 	@Override
 	protected float getSensorValue() {
