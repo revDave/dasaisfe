@@ -15,14 +15,14 @@ public class Labyrinth extends Task {
 
 	@Override
 	protected void specificExecute() {
-		movement.setSpeeds(10, 20);
+		movement.setSpeeds(15, 20);
 		//checks if distanceSensor is up or down
-		movement.bowSensor();
+		movement.unbowSensor();
 
 		// if robot touches the wall in front oh it 
 		if (tactileSensor.frontIsPressed()) {
 			movement.travel(-2);
-			movement.rotateLeft(80);
+			movement.rotateRight(80);
 		}
 		// check if there is a wall on the left side by using DistanceSensor
 		// if there is a wall, drive straight forward, if not, rotate about 90 degrees 
