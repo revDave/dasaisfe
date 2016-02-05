@@ -5,18 +5,18 @@ public class D_Control {
 	private double kd;
 	private double derivative = 0.;
 
-	public D_Control(double kd){
+	public D_Control(double kd) {
 		this.kd = kd;
 	}
-	
-	public double calcOutput(double error){
+
+	public double calcOutput(double error) {
 		derivative = lastError - error;
 		double output = kd * derivative;
 		lastError = error;
 		return output;
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		lastError = 0.;
 		derivative = 0.;
 	}

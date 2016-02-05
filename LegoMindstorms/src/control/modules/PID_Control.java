@@ -14,21 +14,20 @@ public class PID_Control {
 		this.pc = pc;
 		this.dt = dt;
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		i.reset();
 		d.reset();
 	}
-	
+
 	public void init(double p_factor, double i_factor, double i_constant, double d_factor) {
 		p = new P_Control(p_factor * kc);
 		i = new I_Control(i_factor * p.getKp() * dt / pc, i_constant);
 		d = new D_Control((p.getKp() * pc / (d_factor * dt)));
 	}
-	
-	public double calcOutput(double error) 
-		throws IllegalStateException {
-		if(p == null || i == null || d == null)
+
+	public double calcOutput(double error) throws IllegalStateException {
+		if (p == null || i == null || d == null)
 			throw new IllegalStateException("P, I or D was not initialized");
 		return p.calcOutput(error) + i.calcOutput(error) + d.calcOutput(error);
 	}
