@@ -20,7 +20,7 @@ public class TestMovement {
 				LCD.drawInt(i, 1, 3);
 				LCD.drawInt(Motor.B.getSpeed(), 1, 4);
 				LCD.drawInt(Motor.A.getSpeed(), 1, 5);
-				move.steer(i);
+				move.steer(i,false);
 				Button.waitForAnyEvent();
 				if(Button.ESCAPE.isDown()){
 					break;
