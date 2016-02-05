@@ -19,7 +19,7 @@ public class Labyrinth extends Task {
 	protected void specificExecute() {
 		movement.setSpeeds(25, 20);
 		//checks if distanceSensor is up or down
-		movement.unbowSensor();
+		//movement.unbowSensor();
 
 		// if robot touches the wall in front oh it 
 		if (tactileSensor.frontIsPressed()) {
