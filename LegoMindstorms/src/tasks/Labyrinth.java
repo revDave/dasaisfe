@@ -8,7 +8,7 @@ import main.Main;
 public class Labyrinth extends Task {
 
 	//TODO Test and fit
-	private final float LAB_THRESHOLD = 0.15f;
+	private final float UTURN_THRESHOLD = 0.15f;
 	private final float AWAY_THRESHOLD = 0.1f;
 	private final float NEAR_THRESHOLD = 0.02f;
 	
@@ -34,7 +34,7 @@ public class Labyrinth extends Task {
 			float distanceValue = distanceSensor.getDistance();
 			LCD.drawString(String.valueOf(distanceValue), 0, 1);
 			
-			if(LAB_THRESHOLD < distanceValue) {
+			if(UTURN_THRESHOLD < distanceValue) {
 				movement.travel(15);
 				movement.rotateLeft(90);
 				movement.travel(5);
