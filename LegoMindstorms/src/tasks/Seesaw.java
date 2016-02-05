@@ -51,7 +51,7 @@ public class Seesaw extends DriveThrough {
 		LCD.drawString("Error: " + Double.toString(error), 0, 3);
 		LCD.drawString("Turn: " + Double.toString(turn), 0, 4);
 
-		movement.steer(turn);
+		movement.steer(turn, false);
 		Delay.msDelay(100);
 		lastError = error;
 	}
