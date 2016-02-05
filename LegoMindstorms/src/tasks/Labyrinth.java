@@ -18,7 +18,7 @@ public class Labyrinth extends Task {
 
 	@Override
 	protected void specificExecute() {
-		movement.setSpeeds(25, 20);
+		movement.setSpeeds(5, 20);
 		//checks if distanceSensor is up or down
 		//movement.unbowSensor();
 
