@@ -15,11 +15,11 @@ public class Labyrinth extends RegulatedTask {
 	
 	public Labyrinth(Main main) {
 		super(main);
+		movement.setSpeeds(4.5, 180);
 	}
 	
 	// If
-	public void specificExecute() {
-
+	public void specificExecute() {		
 		if (tactileSensor.frontIsPressed()) {
 			movement.travel(-3);
 			movement.rotateRight(80);
@@ -35,7 +35,9 @@ public class Labyrinth extends RegulatedTask {
 		float result = DistanceSensor.getInstance().getDistance();
 		
 		if(result > FAR_AWAY_THRESHOLD) {
-			result = FAR_AWAY_THRESHOLD;
+			//here maybe a higher value so the robot turns stronger to the left
+			// to get the u-turn
+			result = 0.145f;
 		}
 		
 		return result;
@@ -48,7 +50,7 @@ public class Labyrinth extends RegulatedTask {
 
 	//Turn of robot
 	protected float getKC() {
-		return 650;
+		return 2000;
 	}
 
 	@Override
@@ -56,6 +58,9 @@ public class Labyrinth extends RegulatedTask {
 		return 0;
 	}
 
+	protected boolean invertCompensationDirection() {
+		return true;
+	}
 
 	//TODO Test and fit
 //	private final float UTURN_THRESHOLD = 0.12f;
