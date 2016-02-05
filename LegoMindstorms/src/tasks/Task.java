@@ -20,7 +20,7 @@ public abstract class Task {
 
 		movement = Movement.getInstance();
 		colorSensor = ColorSensor.getInstance();
-		tactileSensor = TactileSensor.getInstance();
+		//tactileSensor = TactileSensor.getInstance();
 		distanceSensor = DistanceSensor.getInstance();
 
 	}
