@@ -11,11 +11,11 @@ public class FollowPath extends Task {
 	private float ERROR_TRESHOLD = (float) 0.15;
 	private float KC = 300;
 	private float PC = 500;
-	private float DT = 10;
+	private float DT = 15;
 	private double P_FACTOR = 0.6;
 	private double I_FACTOR = 2.;
 	private double I_CONSTANT = 2 / 3;
-	private double D_FACTOR = 6;
+	private double D_FACTOR = 8;
 	private double error = 0;
 	private double turn = 0;
 	private boolean iAmLost = true;
