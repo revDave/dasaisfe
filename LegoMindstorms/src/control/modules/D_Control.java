@@ -1,6 +1,6 @@
 package control.modules;
 
-public class D_Control {
+public class D_Control implements ControllerInterface {
 	private double lastError = 0.;
 	private double kd;
 	private double derivative = 0.;

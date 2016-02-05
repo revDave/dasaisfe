@@ -1,6 +1,6 @@
 package control.modules;
 
-public class I_Control {
+public class I_Control implements ControllerInterface {
 	private double constant = 1.;
 	private double ki;
 	private double integral = 0.;

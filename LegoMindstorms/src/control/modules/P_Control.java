@@ -1,6 +1,6 @@
 package control.modules;
 
-public class P_Control {
+public class P_Control implements ControllerInterface {
 	private double kp;
 
 	public P_Control(double kp) {
@@ -13,6 +13,11 @@ public class P_Control {
 
 	public double getKp() {
 		return kp;
+	}
+
+	@Override
+	public void reset() {
+
 	}
 
 }

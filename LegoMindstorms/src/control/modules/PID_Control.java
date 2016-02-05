@@ -1,6 +1,6 @@
 package control.modules;
 
-public class PID_Control {
+public class PID_Control implements ControllerInterface {
 	private P_Control p;
 	private I_Control i;
 	private D_Control d;
