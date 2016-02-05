@@ -18,7 +18,7 @@ public class Labyrinth extends Task {
 
 	@Override
 	protected void specificExecute() {
-		movement.setSpeeds(5, 20);
+		movement.setSpeeds(3, 20);
 		//checks if distanceSensor is up or down
 		//movement.unbowSensor();
 
@@ -37,7 +37,7 @@ public class Labyrinth extends Task {
 			if(UTURN_THRESHOLD < distanceValue) {
 				movement.travel(15);
 				movement.rotateLeft(90);
-				movement.travel(5);
+				movement.travel(10);
 			}
 			// Robot is too near to the wall
 			else if (NEAR_THRESHOLD > distanceValue){
