@@ -25,7 +25,7 @@ public class Movement {
 		this.reverse = reverse;
 	}
 
-	public Movement() {
+	private Movement() {
 		// Parameters in cm
 		// Wheel diameter, track width, left motor, right motor, drives in
 		// reverse
