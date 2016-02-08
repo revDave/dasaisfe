@@ -1,5 +1,8 @@
 package main;
 
+import lejos.hardware.Key;
+import lejos.hardware.KeyListener;
+import lejos.hardware.ev3.LocalEV3;
 import sensors.BarcodeScanner;
 import sensors.Movement;
 import tasks.Bridge;
@@ -15,17 +18,26 @@ import tasks.Task;
 public class Main {
 	private ParkourStage stage;
 	private BarcodeScanner scanner;
+	private Task runningTask = null;
 
 	public static void main(String[] args) {
 		new Main();
 	}
 
 	public Main() {
+		LocalEV3.get().getKey("Escape").addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(Key k) {
+			}
+
+			@Override
+			public void keyReleased(Key k) {
+				System.exit(0);
+			}
+		});
+		
 		scanner = new BarcodeScanner(Movement.getInstance());
-		Task t = getTask();
-		if (t != null) {
-			t.execute();
-		}
+		startNewTask(getTask());
 	}
 
 	public Task getTask() {
@@ -53,4 +65,15 @@ public class Main {
 		return task;
 	}
 
+	private void startNewTask(Task task) {
+		if (task != null) {
+			if (runningTask != null) {
+				runningTask.stopTask();
+				runningTask = null;
+			}
+			runningTask = task;
+			runningTask.execute();
+		}
+	}
+	
 }

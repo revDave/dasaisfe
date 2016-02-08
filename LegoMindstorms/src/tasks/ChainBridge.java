@@ -6,39 +6,52 @@ import main.Main;
 
 public class ChainBridge extends RegulatedTask {
 
+	private int counter = 0;
+
+	private boolean driveSlope = true;
+
+	private final float OFFSET_SLOPE = 0.10f;
+	private final float OFFSET_BRIDGE = 0.04f;
+
+	private float offset = OFFSET_SLOPE;
+
+	private float MAX_SENSOR = 0.7f;
+
 	public ChainBridge(Main main) {
 		super(main);
-		movement.bowSensor();
 
 	}
 
 	@Override
 	public void specificExecute() {
+		if (getSensorValue() >= MAX_SENSOR) {
+			movement.bowSensor();
 
-		if (tactileSensor.sideIsPressed()) {
-			movement.rotateLeft(30);
-			movement.driveForward();
-			Delay.msDelay(300);
-			movement.stop();
+			offset = OFFSET_BRIDGE;
+			driveSlope = true;
+
+		} else if (getSensorValue() < 0.08 && !driveSlope) {
+			offset = OFFSET_SLOPE;
+			driveSlope = true;
 		} else {
 			super.specificExecute();
 		}
+
 	}
 
 	@Override
 	protected float getSensorValue() {
 		float result = DistanceSensor.getInstance().getDistance();
 
-		if (result > 0.6) {
-			result = 0.6f;
-		}
+		if (result > MAX_SENSOR)
+			result = MAX_SENSOR;
 
 		return result;
 	}
 
 	@Override
 	protected float getOffset() {
-		return 0.08f;
+		return offset;
 	}
 
 	@Override
