@@ -2,6 +2,7 @@ package sensors;
 
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Stopwatch;
+import main.ParkourStage;
 
 public class BarcodeScanner {
 	private ColorSensor cs;
@@ -16,7 +17,7 @@ public class BarcodeScanner {
 		lineCount = 0;
 	}
 
-	public int read() {
+	public ParkourStage read() {
 		mov.setSpeeds(1, 1337);
 		mov.driveForward(); 
 		Stopwatch timer = new Stopwatch(); 
@@ -37,12 +38,26 @@ public class BarcodeScanner {
 			}
 		}
 		mov.stop();
-		return lineCount;
+		
+		return mapLineCountToStage(lineCount);
 	}
 
 	public void reset() {
 		lineCount = 0;
 		changed = false;
+	}
+	
+	private ParkourStage mapLineCountToStage(int lineCount){
+		switch (lineCount) {
+		case 1:
+		case 2:
+			return ParkourStage.FOLLOWPATH;
+		case 3:
+		case 4:
+		case 5:
+		default:
+			return ParkourStage.BRIDGE;
+		}
 	}
 
 }

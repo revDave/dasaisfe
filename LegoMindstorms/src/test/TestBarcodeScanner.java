@@ -8,7 +8,7 @@ import sensors.Movement;
 public class TestBarcodeScanner {
 	public static void main(String[] args) {
 		BarcodeScanner bc = new BarcodeScanner(Movement.getInstance());
-		LCD.drawInt(bc.read(), 0, 2);
+		LCD.drawString(bc.read()+"", 0, 2);
 		Button.waitForAnyPress();
 	}
 }
