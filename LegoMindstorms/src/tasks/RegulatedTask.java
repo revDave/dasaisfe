@@ -20,7 +20,7 @@ public abstract class RegulatedTask extends Task {
 	protected double P_FACTOR = 0.6;
 	//protected double I_FACTOR = 2.;
 	protected double I_CONSTANT = 2 / 3;
-	protected double D_FACTOR = 8;
+	//protected double D_FACTOR = 8;
 	protected double error = 0;
 	protected double turn = 0;
 	protected boolean iAmLost = true;
@@ -36,7 +36,7 @@ public abstract class RegulatedTask extends Task {
 		super(main);
 
 		pid = new PID_Control(getKC(), PC, DT);
-		pid.init(P_FACTOR, getIFactor(), I_CONSTANT, D_FACTOR);
+		pid.init(P_FACTOR, getIFactor(), I_CONSTANT, getDFactor());
 		pid.setOffset(getOffset());
 
 		movement.setSpeeds(wheelSpeed, 120);
@@ -55,6 +55,11 @@ public abstract class RegulatedTask extends Task {
 	// get I factor
 	protected double getIFactor(){
 		return 2.;
+	};
+
+	// get I factor
+	protected double getDFactor(){
+		return 8.;
 	};
 	
 	// threshold if target is lost. Used in path following

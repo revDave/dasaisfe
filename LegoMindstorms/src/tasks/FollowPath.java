@@ -11,7 +11,7 @@ import lejos.utility.Stopwatch;
 public class FollowPath extends RegulatedTask {
 	private double turn = 0;
 	private boolean iAmLost = true;
-	private int minLostTime = 1300;
+	private int minLostTime = 5000;
 	private int currentLostTime = 0;
 	private Stopwatch finderWatch;
 	private Stopwatch lostWatch;
@@ -105,7 +105,12 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected double getIFactor() {
-		return 0.5;
+		return 0.2;
+	}
+	
+	@Override
+	protected double getDFactor() {
+		return 6;
 	}
 
 	@Override
