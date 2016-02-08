@@ -1,0 +1,6 @@
+package main;
+
+public enum ParkourStage {
+	LABYRINTH, SEESAW, FOLLOWPATH, BRIDGE, CHAINBRIDGE, SWAMP, BOSS, ELEVATOR
+	
+}

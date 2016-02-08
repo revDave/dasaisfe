@@ -9,7 +9,7 @@ import lejos.hardware.lcd.LCD;
 public class TestMovement {
 
 	public static void main(String[] args) {
-		Movement move = new Movement();
+		Movement move = Movement.getInstance(); 
 
 		move.setSpeeds(1, 10);
 		

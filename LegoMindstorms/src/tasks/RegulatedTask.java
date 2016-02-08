@@ -72,7 +72,7 @@ public abstract class RegulatedTask extends Task {
 		error = value - getOffset();
 		
 		// calc pid output with the given error
-		turn = pid.calcOutput(error);
+		turn = pid.calcOutputDefault(error);
 
 		turn = turn < -200 ? -200 : turn;
 		turn = turn > 200 ? 200 : turn;
