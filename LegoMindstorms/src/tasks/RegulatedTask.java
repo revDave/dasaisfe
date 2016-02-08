@@ -77,7 +77,7 @@ public abstract class RegulatedTask extends Task {
 		turn = turn < -200 ? -200 : turn;
 		turn = turn > 200 ? 200 : turn;
 
-		turn = (invertCompensationDirection()) ? turn : -turn;
+		turn = (invertCompensationDirection()) ? -turn : turn;
 		movement.steer(turn, false);
 		
 	}
