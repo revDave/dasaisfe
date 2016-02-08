@@ -12,7 +12,7 @@ public class BarcodeScanner {
 
 	public BarcodeScanner(Movement m) {
 		mov = m;
-		cs = new ColorSensor();
+		cs = ColorSensor.getInstance();
 		changed = false;
 		lineCount = 0;
 	}
