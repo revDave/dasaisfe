@@ -18,7 +18,7 @@ public abstract class RegulatedTask extends Task {
 	protected float PC = 500;
 	protected float DT = 15;
 	protected double P_FACTOR = 0.6;
-	protected double I_FACTOR = 2.;
+	//protected double I_FACTOR = 2.;
 	protected double I_CONSTANT = 2 / 3;
 	protected double D_FACTOR = 8;
 	protected double error = 0;
@@ -36,7 +36,7 @@ public abstract class RegulatedTask extends Task {
 		super(main);
 
 		pid = new PID_Control(getKC(), PC, DT);
-		pid.init(P_FACTOR, I_FACTOR, I_CONSTANT, D_FACTOR);
+		pid.init(P_FACTOR, getIFactor(), I_CONSTANT, D_FACTOR);
 		pid.setOffset(getOffset());
 
 		movement.setSpeeds(wheelSpeed, 120);
@@ -51,6 +51,11 @@ public abstract class RegulatedTask extends Task {
 	
 	// magnitude of deviation
 	protected abstract float getKC();
+
+	// get I factor
+	protected double getIFactor(){
+		return 2.;
+	};
 	
 	// threshold if target is lost. Used in path following
 	protected abstract float getLostThreshold();
@@ -73,6 +78,23 @@ public abstract class RegulatedTask extends Task {
 		
 		// calc pid output with the given error
 		turn = pid.calcOutputDefault(error);
+
+		turn = turn < -200 ? -200 : turn;
+		turn = turn > 200 ? 200 : turn;
+
+		turn = (invertCompensationDirection()) ? -turn : turn;
+		movement.steer(turn, false);
+		
+	}
+	
+	protected void specificExecuteReset() {
+
+		// Get read from sensor
+		double value = getValueAndPrint();
+		error = value - getOffset();
+		
+		// calc pid output with the given error
+		turn = pid.calcOutputReset(error);
 
 		turn = turn < -200 ? -200 : turn;
 		turn = turn > 200 ? 200 : turn;
