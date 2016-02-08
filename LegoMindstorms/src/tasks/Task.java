@@ -10,6 +10,7 @@ import sensors.TactileSensor;
 public abstract class Task {
 	private Main main = null;
 
+	private boolean finish = false;
     protected Movement movement = null;
     protected ColorSensor colorSensor = null;
     protected TactileSensor tactileSensor = null;
@@ -32,6 +33,10 @@ public abstract class Task {
 			//main.readBarcode();
 			goOn = ! Button.ESCAPE.isDown();
 		}
+	}
+	
+	public void stopTask() {
+		finish = true;
 	}
 	
 	
