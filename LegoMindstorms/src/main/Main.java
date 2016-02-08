@@ -1,8 +1,10 @@
 package main;
 
+import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
 import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
 import sensors.BarcodeScanner;
 import sensors.Movement;
 import tasks.Bridge;
@@ -35,6 +37,10 @@ public class Main {
 				System.exit(0);
 			}
 		});
+		
+		LCD.drawString("Press button", 0, 1);
+		Button.waitForAnyPress();
+		LCD.clear();
 		
 		scanner = new BarcodeScanner(Movement.getInstance());
 		startNewTask(getTask());
