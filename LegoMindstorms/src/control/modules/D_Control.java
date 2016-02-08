@@ -9,7 +9,7 @@ public class D_Control implements ControllerInterface {
 		this.kd = kd;
 	}
 
-	public double calcOutput(double error) {
+	public double calcOutputDefault(double error) {
 		derivative = lastError - error;
 		double output = kd * derivative;
 		lastError = error;

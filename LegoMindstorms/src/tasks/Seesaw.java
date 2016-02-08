@@ -1,12 +1,18 @@
 package tasks;
 
-import sensors.DistanceSensor;
-import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
+import lejos.utility.Stopwatch;
 import main.Main;
 
 public class Seesaw extends FollowPath{
-	
+	private double turn = 0;
+	private boolean iAmLost = true;
+	private int minLostTime = 1300;
+	private int currentLostTime = 0;
+	private Stopwatch finderWatch;
+	private Stopwatch lostWatch;
+	private float currentWheelSpeed = 0;
+
 	public Seesaw(Main main) {
 		super(main);
 	}

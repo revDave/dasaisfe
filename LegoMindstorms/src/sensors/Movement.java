@@ -6,9 +6,11 @@ import lejos.hardware.motor.NXTRegulatedMotor;
 
 public class Movement {
 	protected DifferentialPilot pilot;
+	//speed of the robot
 	protected float speed;
 	protected NXTRegulatedMotor leftMotor;
 	protected NXTRegulatedMotor rightMotor;
+	//motor to bow the ultrasonic sensor
 	protected NXTRegulatedMotor sensorBowMotor;
 	protected Boolean distanceUp = null;
 	private static Movement movement = null;
@@ -157,17 +159,19 @@ public class Movement {
 		fastMotor.endSynchronization();
 	}
 
+	// Sensor rotates downwards (example for bridges)
 	public void bowSensor() {
 		if (distanceUp == null || distanceUp) {
-			sensorBowMotor.rotate(90);
+			sensorBowMotor.rotate(-90);
 			distanceUp = false;
 
 		}
 	}
 
+	// Sensor rotates upwards (example for walls)
 	public void unbowSensor() {
 		if (distanceUp == null || !distanceUp) {
-			sensorBowMotor.rotate(-90);
+			sensorBowMotor.rotate(90);
 			distanceUp = true;
 		}
 	}

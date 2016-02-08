@@ -7,7 +7,7 @@ public class P_Control implements ControllerInterface {
 		this.kp = kp;
 	}
 
-	public double calcOutput(double error) {
+	public double calcOutputDefault(double error) {
 		return kp * error;
 	}
 
