@@ -17,12 +17,12 @@ public class BarcodeScanner {
 	}
 
 	public int read() {
-		mov.setSpeeds(1, 1337); // ||
-		mov.driveForward(); // ||
-		Stopwatch timer = new Stopwatch(); // ||
-		timer.reset(); // ||
-		while (timer.elapsed() < 10000) { // <========
-			float color = cs.getRedSensorValue(); // <=====================================================================================
+		mov.setSpeeds(1, 1337);
+		mov.driveForward(); 
+		Stopwatch timer = new Stopwatch(); 
+		timer.reset(); 
+		while (timer.elapsed() < 10000) { 
+			float color = cs.getRedSensorValue(); 
 			LCD.drawString("Timer: " + timer.elapsed(), 0, 4);
 			LCD.drawString("color: " + color, 0, 6);
 			LCD.drawString("Changed: " + changed, 1, 3);
