@@ -22,13 +22,27 @@ public class ChainBridge extends RegulatedTask {
 
 	}
 
-	@Override
+	public void specificExecute1() {
+		if (tactileSensor.frontIsPressed()) {
+			movement.bowSensor();
+
+			offset = OFFSET_BRIDGE;
+			driveSlope = false;
+
+		} else if (getSensorValue() < 0.08 && !driveSlope) {
+			offset = OFFSET_SLOPE;
+			driveSlope = true;
+		} else {
+			super.specificExecute();
+		}
+	}
+	
 	public void specificExecute() {
 		if (getSensorValue() >= MAX_SENSOR) {
 			movement.bowSensor();
 
 			offset = OFFSET_BRIDGE;
-			driveSlope = true;
+			driveSlope = false;
 
 		} else if (getSensorValue() < 0.08 && !driveSlope) {
 			offset = OFFSET_SLOPE;
