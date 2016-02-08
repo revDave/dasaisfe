@@ -1,6 +1,5 @@
 package test;
 
-import main.Main;
 import tasks.Seesaw;
 
 public class TestSeesaw {

@@ -6,8 +6,8 @@ public class TestSwamp {
 
 	public static void main(String[] args) {
 	
-	Swamp lab = new Swamp(null);
+	Swamp swa = new Swamp(null);
 	
-	lab.execute();
+	swa.execute();
 	}
 }

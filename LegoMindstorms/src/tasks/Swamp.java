@@ -7,8 +7,13 @@ public class Swamp extends RegulatedTask {
 	public Swamp(Main main) {
 		super(main);
 		movement.unbowSensor();
+		movement.setSpeeds(8.5, 180);
+		// first drive a little bit backwards to have enough space and 
+		// power to go up on the roles
+		movement.travel(-6);
+		// then travel 10cm straight forwards; now we can use se sensor
+		movement.travel(14);
 		movement.setSpeeds(6.5, 180);
-		movement.travel(10);
 	}
 
 	@Override
