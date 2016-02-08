@@ -9,7 +9,7 @@ public class ColorSensor {
 	
 	private static ColorSensor sensor = null;
 
-	public ColorSensor(){
+	private ColorSensor(){
 		colorSensor = new EV3ColorSensor(SensorPort.S4);
 		colorSensor.setCurrentMode(colorSensor.getRedMode().getName());
 	}
