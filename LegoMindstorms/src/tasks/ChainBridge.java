@@ -16,7 +16,7 @@ public class ChainBridge extends RegulatedTask {
 	public void specificExecute() {
 
 		if (tactileSensor.sideIsPressed()) {
-			movement.rotateRight(30);
+			movement.rotateLeft(30);
 			movement.driveForward();
 			Delay.msDelay(300);
 			movement.stop();

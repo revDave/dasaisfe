@@ -159,7 +159,7 @@ public class Movement {
 
 	public void bowSensor() {
 		if (distanceUp == null || distanceUp) {
-			sensorBowMotor.rotate(90);
+			sensorBowMotor.rotate(-90);
 			distanceUp = false;
 
 		}
@@ -167,7 +167,7 @@ public class Movement {
 
 	public void unbowSensor() {
 		if (distanceUp == null || !distanceUp) {
-			sensorBowMotor.rotate(-90);
+			sensorBowMotor.rotate(90);
 			distanceUp = true;
 		}
 	}
