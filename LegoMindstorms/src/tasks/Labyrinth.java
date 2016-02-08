@@ -1,16 +1,19 @@
 package tasks;
 
-import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 import main.Main;
 import sensors.DistanceSensor;
 
-
+// funcs stabil, if we have time: optimize speed
 public class Labyrinth extends RegulatedTask {
+	// max threshold
 	private final float FAR_AWAY_THRESHOLD = 0.16f;
-	private final float UTURN_THRESHOLD = 0.12f;
-	private final float AWAY_THRESHOLD = 0.1f;
-	private final float NEAR_THRESHOLD = 0.02f;
+	
+	//private final float UTURN_THRESHOLD = 0.12f;
+	//private final float AWAY_THRESHOLD = 0.1f;
+	//private final float NEAR_THRESHOLD = 0.02f;
+	
+	//distance to wall
 	private final float WALL_THRESHOLD = 0.11f;
 	
 	public Labyrinth(Main main) {
@@ -18,11 +21,13 @@ public class Labyrinth extends RegulatedTask {
 		movement.setSpeeds(4.5, 180);
 	}
 	
-	// If
+	
 	public void specificExecute() {		
+		// If the front sensor is pressed, a wall was hit, rotate to the left to
+		// dodge the wall and drive further
 		if (tactileSensor.frontIsPressed()) {
 			movement.travel(-3);
-			movement.rotateRight(80);
+			movement.rotateLeft(80);
 			Delay.msDelay(200);
 			movement.stop();
 		} else {
@@ -30,14 +35,13 @@ public class Labyrinth extends RegulatedTask {
 		}
 	}
 
-	// Fit the sensor value, so we don´t get an infinity value
+
 	protected float getSensorValue() {
 		float result = DistanceSensor.getInstance().getDistance();
 		
+		// Fit the sensor value, so we don´t get an infinity value
 		if(result > FAR_AWAY_THRESHOLD) {
-			//here maybe a higher value so the robot turns stronger to the left
-			// to get the u-turn
-			result = 0.145f;
+			result = 0.15f;
 		}
 		
 		return result;
@@ -58,6 +62,7 @@ public class Labyrinth extends RegulatedTask {
 		return 0;
 	}
 
+	// Right direction
 	protected boolean invertCompensationDirection() {
 		return true;
 	}
