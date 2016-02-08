@@ -1,5 +1,6 @@
 package sensors;
 
+import lejos.hardware.lcd.LCD;
 import lejos.utility.Stopwatch;
 
 public class BarcodeScanner {
@@ -16,26 +17,30 @@ public class BarcodeScanner {
 	}
 
 	public int read() {
-		float color = cs.getRedSensorValue();
-		mov.setSpeeds(3, 1337);
-		mov.driveForward();
-		Stopwatch timer = new Stopwatch();
-		timer.reset();
-		
-		while (timer.elapsed() < 1000) {
+		mov.setSpeeds(1, 1337); // ||
+		mov.driveForward(); // ||
+		Stopwatch timer = new Stopwatch(); // ||
+		timer.reset(); // ||
+		while (timer.elapsed() < 10000) { // <========
+			float color = cs.getRedSensorValue(); // <=====================================================================================
+			LCD.drawString("Timer: " + timer.elapsed(), 0, 4);
+			LCD.drawString("color: " + color, 0, 6);
+			LCD.drawString("Changed: " + changed, 1, 3);
+			LCD.drawString("lineCount: " + lineCount, 0, 5);
 			if (color > .7 && changed) {
 				changed = false;
 				timer.reset();
 				lineCount++;
-			} else if (color < .2 && changed) {
+			} else if (color < .2 && !changed) {
 				// do stuff
 				changed = true;
 			}
 		}
+		mov.stop();
 		return lineCount;
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		lineCount = 0;
 		changed = false;
 	}
