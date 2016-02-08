@@ -10,7 +10,7 @@ public class ChainBridge extends RegulatedTask {
 
 	private boolean driveSlope = true;
 
-	private final float OFFSET_SLOPE = 0.10f;
+	private final float OFFSET_SLOPE = 0.08f;
 	private final float OFFSET_BRIDGE = 0.04f;
 
 	private float offset = OFFSET_SLOPE;
@@ -44,7 +44,7 @@ public class ChainBridge extends RegulatedTask {
 			offset = OFFSET_BRIDGE;
 			driveSlope = false;
 
-		} else if (getSensorValue() < 0.08 && !driveSlope) {
+		} else if (getSensorValue() < 0.04 && !driveSlope) {
 			offset = OFFSET_SLOPE;
 			driveSlope = true;
 		} else {
@@ -70,12 +70,16 @@ public class ChainBridge extends RegulatedTask {
 
 	@Override
 	protected float getKC() {
-		return 650;
+		return 800;
 	}
 
 	@Override
 	protected float getLostThreshold() {
 		return 0;
+	}
+	// Right direction
+	protected boolean invertCompensationDirection() {
+		return !driveSlope;
 	}
 
 }
