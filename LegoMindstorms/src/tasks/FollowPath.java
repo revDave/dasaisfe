@@ -5,21 +5,26 @@ import main.Main;
 import lejos.hardware.lcd.LCD;
 import control.modules.PID_Control;
 import lejos.hardware.Button;
+import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
 
 public class FollowPath extends RegulatedTask {
 	private double turn = 0;
 	private boolean iAmLost = true;
-	private int maxLostTime = 300;
+	private int minLostTime = 1300;
+	private int currentLostTime = 0;
 	private Stopwatch finderWatch;
 	private Stopwatch lostWatch;
+	private float currentWheelSpeed = 0;
 
 	public FollowPath(Main main) {
 		super(main);
 
 		finderWatch = new Stopwatch();
 		lostWatch = new Stopwatch();
-		
+		currentWheelSpeed = wheelSpeed;
+		currentLostTime = minLostTime;
+
 		findline(false);
 	}
 
@@ -30,7 +35,7 @@ public class FollowPath extends RegulatedTask {
 		// Get read from sensor
 		double sensorValue = getSensorValue();
 		if (sensorValue < getLostThreshold()) {
-			if (lostWatch.elapsed() > maxLostTime) {
+			if (lostWatch.elapsed() > currentLostTime) {
 				iAmLost = true;
 
 				// reset pid control
@@ -41,16 +46,28 @@ public class FollowPath extends RegulatedTask {
 			lostWatch.reset();
 		}
 
+		movement.setSpeeds(currentWheelSpeed, 120);
+		currentWheelSpeed = Math.min(wheelSpeed, currentWheelSpeed + 0.005f);
+		currentLostTime = Math.max(minLostTime, currentLostTime - 10);
 		super.specificExecute();
 	}
 
 	protected void findline(boolean reverse) {
 		if (iAmLost) {
-			turn = 160;
-			for (int i = 200; i <= 1000; i = i + 100) {
+			if (reverse) {
+				movement.quickStop();
+				movement.steer(-turn, true);
+				Delay.msDelay(currentLostTime * 10 / 15);
+				movement.quickStop();
+				currentWheelSpeed = wheelSpeed - 2.f;
+				currentLostTime = minLostTime + 1500;
+			}
+			turn = 140;
+			movement.setSpeeds(wheelSpeed, 120);
+			for (int i = 500; i <= 1000; i = i + 100) {
 				turn *= -1;
 				finderWatch.reset();
-				movement.steer(turn, reverse);
+				movement.steer(turn, false);
 				while (iAmLost && finderWatch.elapsed() < i) {
 					float sensorValue = getSensorValue();
 					if (sensorValue >= getLostThreshold()) {
@@ -64,10 +81,16 @@ public class FollowPath extends RegulatedTask {
 			}
 		}
 	}
-	
+
 	@Override
 	protected float getSensorValue() {
-		return colorSensor.getRedSensorValue();
+		int numSamples = 3;
+		float result = 0;
+		for (int i = 0; i < numSamples; i++) {
+			result += colorSensor.getRedSensorValue();
+		}
+
+		return result / numSamples;
 	}
 
 	@Override
@@ -77,7 +100,7 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getKC() {
-		return 300;
+		return 330;
 	}
 
 	@Override
