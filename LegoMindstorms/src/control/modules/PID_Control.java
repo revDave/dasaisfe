@@ -26,12 +26,19 @@ public class PID_Control implements ControllerInterface {
 		d = new D_Control((p.getKp() * pc / (d_factor * dt)));
 	}
 
-	public double calcOutput(double error) throws IllegalStateException {
+	public double calcOutputDefault(double error) throws IllegalStateException {
 		if (p == null || i == null || d == null)
 			throw new IllegalStateException("P, I or D was not initialized");
-		return p.calcOutput(error) + i.calcOutput(error) + d.calcOutput(error);
+		return p.calcOutputDefault(error) + i.calcOutputDefault(error) + d.calcOutputDefault(error);
 	}
 
+	public double calcOutputReset(double error) throws IllegalStateException {
+		if (p == null || i == null || d == null)
+			throw new IllegalStateException("P, I or D was not initialized");
+		return p.calcOutputDefault(error) + i.calcOutputReset(error) + d.calcOutputDefault(error);
+	}
+
+	
 	public double getKc() {
 		return kc;
 	}
