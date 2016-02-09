@@ -9,44 +9,77 @@ public class DriveThrough extends RegulatedTask {
 		private final float FAR_AWAY_THRESHOLD = 0.16f;	
 		//distance to wall
 		private final float WALL_THRESHOLD = 0.11f;
-		boolean pink = false;
+		boolean pink = true;
+		//first time for detecting pink line
 		float val = 0.0f;
+		//second time for detecting pink line
+		float val2 = 0.0f;
+		boolean rosa = false;
 		
 		public DriveThrough() {
 			movement.setSpeeds(9, 180);
 			movement.rotateRight(45);
 			movement.travel(20);
-			movement.rotateLeft(45);
+			movement.rotateLeft(75);
 			movement.setSpeeds(4.5, 180);
 		}
 		
 		
-		public TaskState specificExecute() {		
-			// If the front sensor is pressed, a wall was hit, rotate to the left to
-			// dodge the wall and drive further
-			if (tactileSensor.frontIsPressed()) {
-				movement.travel(-3);
-				movement.rotateLeft(80);
-				Delay.msDelay(200);
-				movement.stop();
-			} else {
-				super.specificExecute();
-			}
-			if(continueCurrentTask()){
-				return TaskState.CONTINUE;
-			}
-			else{
-				movement.travel(-4);
-				return TaskState.END;
-			}
+		public TaskState specificExecute() {	
+			if (!rosa) {
+				// If the front sensor is pressed, a wall was hit, rotate to the left to
+				// dodge the wall and drive further
+				if (tactileSensor.frontIsPressed()) {
+					movement.travel(-3);
+					movement.rotateLeft(80);
+					Delay.msDelay(200);
+					movement.stop();
+				} else {
+					super.specificExecute();
+				}
+	//			if(continueCurrentTask()){
+	//				return TaskState.CONTINUE;
+	//			}
+	//			else{
+	//				movement.travel(-4);
+	//				return TaskState.END;
+	//			}
+				
+				// todo übergang
+				
+				val = colorSensor.getColorSensorValue();
 			
-//			val = colorSensor.getColorSensorValue();
-//			if (val == 2.0) {
-//				movement.stop();
-//				return TaskState.KILL;
-//			} else {
-//				return TaskState.CONTINUE;
-//			}
+				if (val == 2.0) {
+					rosa = true;
+					movement.travel(5);
+				} 
+				return TaskState.CONTINUE;
+				
+			} else {
+				//drives for the first time over a pink line
+				pink = false;
+				movement.setSpeeds(9, 180);
+				movement.driveForward();
+				// If the front sensor is pressed, the final boss was hit, 
+				// wait 3 seconds and drives again straight forward
+				if (tactileSensor.frontIsPressed()) {
+					movement.travel(-3);
+					movement.stop();
+					Delay.msDelay(3000);
+				} else {
+					movement.setSpeeds(9, 180);
+					movement.driveForward();
+				}
+				
+				//funktioniert noch nicht einwandfrei
+				val2 = colorSensor.getColorSensorValue();
+				if (val2 == 2.0) {
+					movement.quickStop();
+					return TaskState.KILL;
+				} else {
+					return TaskState.CONTINUE;
+				}
+			}
 		}
 
 

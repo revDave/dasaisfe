@@ -29,7 +29,7 @@ public class FinalBoss extends RegulatedTask {
 		}
 		getSensorValue();
 		if (pink == true) {
-			movement.stop();
+			movement.quickStop();
 			return TaskState.KILL;
 		} else {
 			return TaskState.CONTINUE;
