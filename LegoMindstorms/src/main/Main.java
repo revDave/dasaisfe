@@ -14,6 +14,7 @@ import tasks.Labyrinth;
 import tasks.Seesaw;
 import tasks.Swamp;
 import tasks.Task;
+import tasks.TaskState;
 
 public class Main {
 	private ParkourStage stage;
@@ -35,9 +36,11 @@ public class Main {
 				System.exit(0);
 			}
 		});
-		
-		scanner = new BarcodeScanner(Movement.getInstance());
-		startNewTask(getTask());
+
+		while (true) {
+			scanner = new BarcodeScanner(Movement.getInstance());
+			startNewTask(getTask());
+		}
 	}
 
 	public Task getTask() {
@@ -60,7 +63,6 @@ public class Main {
 			;
 		case ELEVATOR:
 			task = new Elevator();
-
 		}
 		return task;
 	}
@@ -75,5 +77,5 @@ public class Main {
 			runningTask.execute();
 		}
 	}
-	
+
 }

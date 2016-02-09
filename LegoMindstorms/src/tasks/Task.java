@@ -24,11 +24,10 @@ public abstract class Task {
 	}
 
 	public void execute() {
-		boolean goOn = true;
-		while (goOn) {
-			specificExecute();
+		while (specificExecute() == TaskState.CONTINUE) {
 			// main.readBarcode();
-			goOn = !Button.ESCAPE.isDown();
+			if(Button.ESCAPE.isDown())
+				return;
 		}
 	}
 
