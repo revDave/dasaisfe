@@ -10,9 +10,9 @@ public class Swamp extends RegulatedTask {
 		movement.setSpeeds(9, 180);
 		// first drive backwards to have enough space and 
 		// power to go up on the roles
-		movement.travel(-9);
+		//movement.travel(-9);
 		// then travel 10cm straight forwards; now we can use se sensor
-		movement.travel(20);
+		movement.travel(8);
 		movement.setSpeeds(6.5, 180);
 	}
 
