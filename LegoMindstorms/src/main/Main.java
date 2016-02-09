@@ -43,6 +43,8 @@ public class Main {
 		Button.waitForAnyPress();
 		LCD.clear();
 		
+		//if robot should not start in the labyrinth, commit out
+		//this line
 		startNewTask(new Labyrinth());
 		
 		while (true) {
