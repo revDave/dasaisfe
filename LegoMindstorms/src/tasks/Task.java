@@ -26,6 +26,7 @@ public abstract class Task {
 		TaskState specEx = specificExecute();
 		while (specEx == TaskState.CONTINUE) {
 			// main.readBarcode();
+			specEx = specificExecute();
 			if(Button.ESCAPE.isDown())
 				return;
 		}

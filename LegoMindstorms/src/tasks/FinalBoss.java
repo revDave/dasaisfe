@@ -27,17 +27,14 @@ public class FinalBoss extends RegulatedTask {
 			movement.setSpeeds(9, 180);
 			movement.driveForward();
 		}
+		getSensorValue();
 		if (pink == true) {
 			movement.stop();
 			return TaskState.KILL;
-		}
-		if(continueCurrentTask()){
+		} else {
 			return TaskState.CONTINUE;
 		}
-		else{
-			movement.travel(-4);
-			return TaskState.END;
-		}
+
 	}
 
 	protected float getSensorValue() {
