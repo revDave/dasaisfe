@@ -5,8 +5,9 @@ import lejos.utility.Delay;
 import sensors.ColorSensor;
 
 
-public class FinalBoss extends Task {
-	
+
+public class FinalBoss extends RegulatedTask {
+	boolean pink = false;
 	public FinalBoss() {
 		
 	}
@@ -26,6 +27,10 @@ public class FinalBoss extends Task {
 			movement.setSpeeds(9, 180);
 			movement.driveForward();
 		}
+		if (pink == true) {
+			movement.stop();
+			return TaskState.KILL;
+		}
 		if(continueCurrentTask()){
 			return TaskState.CONTINUE;
 		}
@@ -35,7 +40,39 @@ public class FinalBoss extends Task {
 		}
 	}
 
+	protected float getSensorValue() {
+		float val = colorSensor.getColorSensorValue();
+		
+		if (val == 2.0) {
+			pink = true;
+		}
+		return val;
+	}
+	
+	@Override
+	protected float getOffset() {
+		return 0.1f;
+	}
 
+	@Override
+	protected float getKC() {
+		return 999;
+	}
+
+	@Override
+	protected double getIFactor() {
+		return 0.05;
+	}
+	
+	@Override
+	protected double getDFactor() {
+		return 50;
+	}
+
+	@Override
+	protected float getLostThreshold() {
+		return 0.15f;
+	}
 
 
 	// Right direction
@@ -48,6 +85,6 @@ public class FinalBoss extends Task {
 	protected boolean continueCurrentTask() {
 		ColorSensor cs = ColorSensor.getInstance();
 		float red = cs.getRedSensorValue();
-		return !detectLine();
+		return false;
 	}
 }

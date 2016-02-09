@@ -1,5 +1,5 @@
 package tasks;
 
 public enum TaskState {
-	END, CONTINUE
+	END, CONTINUE, KILL
 }

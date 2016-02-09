@@ -13,6 +13,7 @@ public abstract class Task {
 	protected ColorSensor colorSensor = null;
 	protected TactileSensor tactileSensor = null;
 	protected DistanceSensor distanceSensor = null;
+	
 
 	public Task() {
 		movement = Movement.getInstance();
@@ -22,12 +23,18 @@ public abstract class Task {
 	}
 
 	public void execute() {
-		while (specificExecute() == TaskState.CONTINUE) {
+		TaskState specEx = specificExecute();
+		while (specEx == TaskState.CONTINUE) {
 			// main.readBarcode();
 			if(Button.ESCAPE.isDown())
 				return;
 		}
 		movement.quickStop();
+		
+		if (specEx == TaskState.KILL) {
+			movement.stop();
+			return;
+		}
 	}
 
 	public void stopTask() {
