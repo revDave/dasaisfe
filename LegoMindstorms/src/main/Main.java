@@ -55,22 +55,27 @@ public class Main {
 		switch (stage) {
 		case LABYRINTH:
 			task = new Labyrinth();
+			break;
 		case SEESAW:
 			task = new Seesaw();
+			break;
 		case FOLLOWPATH:
 			task = new FollowPath();
+			break;
 		case BRIDGE:
 			task = new Bridge();
+			break;
 		case CHAINBRIDGE:
 			task = new ChainBridge();
+			break;
 		case SWAMP:
 			task = new Swamp();
+			break;
 		case BOSS:
 			;
 		case ELEVATOR:
 			task = new Elevator();
-		default:
-			;
+			break;
 		}
 		return task;
 	}
