@@ -27,7 +27,7 @@ public class FollowPath extends RegulatedTask {
 	}
 
 	@Override
-	protected void specificExecute() {
+	protected TaskState specificExecute() {
 		findline(true);
 
 		// Get read from sensor
@@ -38,7 +38,7 @@ public class FollowPath extends RegulatedTask {
 
 				// reset pid control
 				pid.reset();
-				return;
+				return TaskState.CONTINUE;
 			}
 		} else {
 			lostWatch.reset();
@@ -47,7 +47,7 @@ public class FollowPath extends RegulatedTask {
 		movement.setSpeeds(currentWheelSpeed, 120);
 		currentWheelSpeed = Math.min(wheelSpeed, currentWheelSpeed + 0.005f);
 		currentLostTime = Math.max(minLostTime, currentLostTime - 10);
-		super.specificExecute();
+		return super.specificExecute();
 	}
 
 	protected void findline(boolean reverse) {

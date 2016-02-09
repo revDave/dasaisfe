@@ -31,8 +31,8 @@ public class ChainBridge extends RegulatedTask {
 			super.specificExecute();
 		}
 	}
-	
-	public void specificExecute() {
+
+	public TaskState specificExecute() {
 		if (getSensorValue() >= MAX_SENSOR) {
 			movement.bowSensor();
 
@@ -43,9 +43,9 @@ public class ChainBridge extends RegulatedTask {
 			offset = OFFSET_SLOPE;
 			driveSlope = true;
 		} else {
-			super.specificExecute();
+			return super.specificExecute();
 		}
-
+		return TaskState.CONTINUE;
 	}
 
 	@Override
@@ -72,6 +72,7 @@ public class ChainBridge extends RegulatedTask {
 	protected float getLostThreshold() {
 		return 0;
 	}
+
 	// Right direction
 	protected boolean invertCompensationDirection() {
 		return !driveSlope;

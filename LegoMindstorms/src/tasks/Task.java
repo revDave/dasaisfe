@@ -36,6 +36,6 @@ public abstract class Task {
 		finish = true;
 	}
 
-	protected abstract void specificExecute();
+	protected abstract TaskState specificExecute();
 
 }
