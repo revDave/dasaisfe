@@ -46,7 +46,7 @@ public class Main {
 		
 		//if robot should not start in the labyrinth, commit out
 		//this line
-		//startNewTask(new Labyrinth());
+		startNewTask(new Labyrinth());
 		
 		while (true) {
 			scanner = new BarcodeScanner(Movement.getInstance());
