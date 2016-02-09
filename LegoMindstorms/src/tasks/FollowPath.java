@@ -49,7 +49,7 @@ public class FollowPath extends RegulatedTask {
 		movement.setSpeeds(currentWheelSpeed, 120);
 		currentWheelSpeed = Math.min(wheelSpeed, currentWheelSpeed + 0.005f);
 		currentLostTime = Math.max(minLostTime, currentLostTime - 10);
-		super.specificExecuteReset();
+		super.specificExecute();
 	}
 
 	protected void findline(boolean reverse) {
@@ -95,22 +95,22 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getOffset() {
-		return 0.5f;
+		return 0.55f;
 	}
 
 	@Override
 	protected float getKC() {
-		return 330;
+		return 666;
 	}
 
 	@Override
 	protected double getIFactor() {
-		return 0.2;
+		return 0.;
 	}
 	
 	@Override
 	protected double getDFactor() {
-		return 6;
+		return 10;
 	}
 
 	@Override
