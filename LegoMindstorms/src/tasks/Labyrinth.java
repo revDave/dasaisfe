@@ -2,6 +2,7 @@ package tasks;
 
 import lejos.utility.Delay;
 import main.Main;
+import sensors.ColorSensor;
 import sensors.DistanceSensor;
 
 // funcs stabil, if we have time: optimize speed
@@ -32,7 +33,13 @@ public class Labyrinth extends RegulatedTask {
 		} else {
 			super.specificExecute();
 		}
-		return TaskState.CONTINUE;
+		if(continueCurrentTask()){
+			return TaskState.CONTINUE;
+		}
+		else{
+			movement.travel(-4);
+			return TaskState.END;
+		}
 	}
 
 
@@ -70,8 +77,9 @@ public class Labyrinth extends RegulatedTask {
 
 	@Override
 	protected boolean continueCurrentTask() {
-		// TODO Auto-generated method stub
-		return false;
+		ColorSensor cs = ColorSensor.getInstance();
+		float red = cs.getRedSensorValue();
+		return !detectLine();
 	}
 
 	//TODO Test and fit

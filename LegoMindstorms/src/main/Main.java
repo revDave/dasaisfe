@@ -42,7 +42,9 @@ public class Main {
 		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();
 		LCD.clear();
-
+		
+		startNewTask(new Labyrinth());
+		
 		while (true) {
 			scanner = new BarcodeScanner(Movement.getInstance());
 			startNewTask(getTask());
@@ -75,6 +77,8 @@ public class Main {
 			;
 		case ELEVATOR:
 			task = new Elevator();
+			break;
+		default:
 			break;
 		}
 		return task;

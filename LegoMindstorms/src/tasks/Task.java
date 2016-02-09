@@ -27,6 +27,7 @@ public abstract class Task {
 			if(Button.ESCAPE.isDown())
 				return;
 		}
+		movement.quickStop();
 	}
 
 	public void stopTask() {
