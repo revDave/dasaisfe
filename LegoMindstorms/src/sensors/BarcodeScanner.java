@@ -5,6 +5,8 @@ import lejos.utility.Stopwatch;
 import main.ParkourStage;
 
 public class BarcodeScanner {
+	protected static final double lowThreshold = .15;
+	protected static final double highThreshold = .2;
 	private ColorSensor cs;
 	private boolean changed;
 	private int lineCount;
@@ -28,11 +30,11 @@ public class BarcodeScanner {
 			LCD.drawString("color: " + color, 0, 6);
 			LCD.drawString("Changed: " + changed, 1, 3);
 			LCD.drawString("lineCount: " + lineCount, 0, 5);
-			if (color > .7 && changed) {
+			if (color > highThreshold && changed) {
 				changed = false;
 				timer.reset();
 				lineCount++;
-			} else if (color < .2 && !changed) {
+			} else if (color < lowThreshold && !changed) {
 				// do stuff
 				changed = true;
 			}
