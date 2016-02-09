@@ -19,8 +19,8 @@ public class Bridge extends RegulatedTask {
 	protected float getSensorValue() {
 		float result = DistanceSensor.getInstance().getDistance();
 		
-		if(result > 0.6) {
-			result = 0.6f;
+		if(result > 0.25) {
+			result = 0.25f;
 		}
 		
 		return result;
