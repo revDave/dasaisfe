@@ -5,8 +5,8 @@ import lejos.utility.Stopwatch;
 import main.ParkourStage;
 
 public class BarcodeScanner {
-	protected static final double lowThreshold = .2;
-	protected static final double highThreshold = .5;
+	protected static final double lowThreshold = .1;
+	protected static final double highThreshold = .2;
 	private ColorSensor cs;
 	private boolean changed;
 	private int lineCount;
