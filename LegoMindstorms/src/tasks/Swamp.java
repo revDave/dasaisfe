@@ -6,14 +6,15 @@ import main.Main;
 //funcs stabil, if we have time: optimize speed and distance
 public class Swamp extends RegulatedTask {
 	public Swamp() {
-		movement.unbowSensor();
+		//movement.unbowSensor();
+		//movement.stop();
 		movement.setSpeeds(9, 180);
 		// first drive backwards to have enough space and 
 		// power to go up on the roles
 		//movement.travel(-9);
 		// then travel 10cm straight forwards; now we can use se sensor
 		movement.travel(8);
-		movement.setSpeeds(6.5, 180);
+		movement.setSpeeds(9, 180);
 	}
 
 	@Override

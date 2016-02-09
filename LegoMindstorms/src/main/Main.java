@@ -9,6 +9,7 @@ import sensors.BarcodeScanner;
 import sensors.Movement;
 import tasks.Bridge;
 import tasks.ChainBridge;
+import tasks.DriveThrough;
 import tasks.Elevator;
 import tasks.FinalBoss;
 import tasks.FollowPath;
@@ -45,7 +46,7 @@ public class Main {
 		
 		//if robot should not start in the labyrinth, commit out
 		//this line
-		startNewTask(new Labyrinth());
+		//startNewTask(new Labyrinth());
 		
 		while (true) {
 			scanner = new BarcodeScanner(Movement.getInstance());
@@ -79,6 +80,9 @@ public class Main {
 			;
 		case ELEVATOR:
 			task = new Elevator();
+			break;
+		case DRIVETHORUGH:
+			task = new DriveThrough();
 			break;
 		default:
 			break;
