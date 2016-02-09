@@ -38,10 +38,6 @@ public abstract class RegulatedTask extends Task {
 		pid.setOffset(getOffset());
 
 		movement.setSpeeds(wheelSpeed, 120);
-
-		LCD.drawString("Press button to start", 0, 1);
-		Button.waitForAnyPress();
-		LCD.clear();
 	}
 	
 	// classifying value for the sensor 

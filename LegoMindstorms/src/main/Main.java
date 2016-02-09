@@ -38,6 +38,10 @@ public class Main {
 				System.exit(0);
 			}
 		});
+		
+		LCD.drawString("Press button to start", 0, 1);
+		Button.waitForAnyPress();
+		LCD.clear();
 
 		while (true) {
 			scanner = new BarcodeScanner(Movement.getInstance());
@@ -65,7 +69,8 @@ public class Main {
 			;
 		case ELEVATOR:
 			task = new Elevator();
-
+		default:
+			;
 		}
 		return task;
 	}
