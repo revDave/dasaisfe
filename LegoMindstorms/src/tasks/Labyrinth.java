@@ -67,6 +67,13 @@ public class Labyrinth extends RegulatedTask {
 		return true;
 	}
 
+
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	//TODO Test and fit
 //	private final float UTURN_THRESHOLD = 0.12f;
 //	private final float AWAY_THRESHOLD = 0.1f;

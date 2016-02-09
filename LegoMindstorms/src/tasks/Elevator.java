@@ -10,4 +10,10 @@ public class Elevator extends Task {
 		return TaskState.CONTINUE;
 	}
 
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

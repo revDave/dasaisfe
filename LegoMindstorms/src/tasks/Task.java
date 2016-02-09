@@ -34,7 +34,7 @@ public abstract class Task {
 	}
 
 	protected abstract TaskState specificExecute();
-	
+	protected abstract boolean continueCurrentTask();
 	protected boolean detectLine(){
 		return colorSensor.getRedSensorValue() > .4;
 	}

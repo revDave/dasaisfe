@@ -97,4 +97,10 @@ public class ChainBridge extends RegulatedTask {
 		return driveSlope;
 	}
 
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

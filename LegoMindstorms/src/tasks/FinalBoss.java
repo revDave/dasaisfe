@@ -12,4 +12,10 @@ public class FinalBoss extends Task {
 		movement.unbowSensor();
 		return TaskState.CONTINUE;
 	}
+
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

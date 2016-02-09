@@ -105,4 +105,10 @@ public class FollowPath extends RegulatedTask {
 	protected float getLostThreshold() {
 		return 0.15f;
 	}
+
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -41,4 +41,10 @@ public class Bridge extends RegulatedTask {
 		return 0;
 	}
 
+	@Override
+	protected boolean continueCurrentTask() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
