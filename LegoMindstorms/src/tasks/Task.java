@@ -8,8 +8,6 @@ import sensors.Movement;
 import sensors.TactileSensor;
 
 public abstract class Task {
-	private Main main = null;
-
 	private boolean finish = false;
 	protected Movement movement = null;
 	protected ColorSensor colorSensor = null;
@@ -24,11 +22,10 @@ public abstract class Task {
 	}
 
 	public void execute() {
-		boolean goOn = true;
-		while (goOn) {
-			specificExecute();
+		while (specificExecute() == TaskState.CONTINUE) {
 			// main.readBarcode();
-			goOn = !Button.ESCAPE.isDown();
+			if(Button.ESCAPE.isDown())
+				return;
 		}
 	}
 
@@ -36,6 +33,6 @@ public abstract class Task {
 		finish = true;
 	}
 
-	protected abstract void specificExecute();
+	protected abstract TaskState specificExecute();
 
 }
