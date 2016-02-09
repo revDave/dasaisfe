@@ -9,6 +9,8 @@ public class DriveThrough extends RegulatedTask {
 		private final float FAR_AWAY_THRESHOLD = 0.16f;	
 		//distance to wall
 		private final float WALL_THRESHOLD = 0.11f;
+		boolean pink = false;
+		float val = 0.0f;
 		
 		public DriveThrough() {
 			movement.setSpeeds(9, 180);
@@ -37,6 +39,14 @@ public class DriveThrough extends RegulatedTask {
 				movement.travel(-4);
 				return TaskState.END;
 			}
+			
+//			val = colorSensor.getColorSensorValue();
+//			if (val == 2.0) {
+//				movement.stop();
+//				return TaskState.KILL;
+//			} else {
+//				return TaskState.CONTINUE;
+//			}
 		}
 
 
