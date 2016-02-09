@@ -13,10 +13,6 @@ public class Seesaw extends FollowPath{
 	private Stopwatch lostWatch;
 	private float currentWheelSpeed = 0;
 
-	public Seesaw(Main main) {
-		super(main);
-	}
-	
 //	@Override
 //	public void specificExecute() {
 //		super.specificExecute();

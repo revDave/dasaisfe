@@ -17,11 +17,6 @@ public class ChainBridge extends RegulatedTask {
 
 	private float MAX_SENSOR = 0.7f;
 
-	public ChainBridge(Main main) {
-		super(main);
-
-	}
-
 	public void specificExecute1() {
 		if (tactileSensor.frontIsPressed()) {
 			movement.bowSensor();

@@ -4,11 +4,9 @@ import sensors.DistanceSensor;
 import main.Main;
 
 public class Bridge extends RegulatedTask {
-	public Bridge(Main main) {
-		super(main);		
+	public Bridge() {
 		movement.setSpeeds(6.5, 180);
 		movement.bowSensor();
-		
 	}
 	
 	@Override

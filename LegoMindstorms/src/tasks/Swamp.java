@@ -5,8 +5,7 @@ import main.Main;
 
 //funcs stabil, if we have time: optimize speed and distance
 public class Swamp extends RegulatedTask {
-	public Swamp(Main main) {
-		super(main);
+	public Swamp() {
 		movement.unbowSensor();
 		movement.setSpeeds(9, 180);
 		// first drive backwards to have enough space and 

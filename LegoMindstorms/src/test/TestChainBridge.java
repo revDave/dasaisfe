@@ -8,7 +8,7 @@ import tasks.Task;
 public class TestChainBridge {
 	
 	public static void main(String[] args) {
-		Task task = new ChainBridge(null);
+		Task task = new ChainBridge();
 		task.execute();
 	}
 
