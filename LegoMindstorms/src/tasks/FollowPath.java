@@ -17,9 +17,7 @@ public class FollowPath extends RegulatedTask {
 	private Stopwatch lostWatch;
 	private float currentWheelSpeed = 0;
 
-	public FollowPath(Main main) {
-		super(main);
-
+	public FollowPath() {
 		finderWatch = new Stopwatch();
 		lostWatch = new Stopwatch();
 		currentWheelSpeed = wheelSpeed;

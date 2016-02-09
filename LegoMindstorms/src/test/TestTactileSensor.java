@@ -22,7 +22,7 @@ public class TestTactileSensor {
 //			duration = Button.readButtons() == 0;
 //		}
 		
-		Labyrinth lab = new Labyrinth(null);
+		Labyrinth lab = new Labyrinth();
 		
 		lab.execute();
 

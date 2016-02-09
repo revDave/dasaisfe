@@ -7,7 +7,7 @@ import lejos.hardware.KeyListener;
 
 public class TestFollowPath extends TestBase{
 	public static void main(String[] args) {
-		FollowPath fp = new FollowPath(null);
+		FollowPath fp = new FollowPath();
 		
 		fp.execute();
 	}

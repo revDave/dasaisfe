@@ -22,7 +22,7 @@ public class BarcodeScanner {
 		mov.driveForward(); 
 		Stopwatch timer = new Stopwatch(); 
 		timer.reset(); 
-		while (timer.elapsed() < 1500) { 
+		while (timer.elapsed() < 3500) { 
 			float color = cs.getRedSensorValue(); 
 			LCD.drawString("Timer: " + timer.elapsed(), 0, 4);
 			LCD.drawString("color: " + color, 0, 6);

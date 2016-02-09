@@ -51,21 +51,21 @@ public class Main {
 		stage = scanner.read();
 		switch (stage) {
 		case LABYRINTH:
-			task = new Labyrinth(this);
+			task = new Labyrinth();
 		case SEESAW:
-			task = new Seesaw(this);
+			task = new Seesaw();
 		case FOLLOWPATH:
-			task = new FollowPath(this);
+			task = new FollowPath();
 		case BRIDGE:
-			task = new Bridge(this);
+			task = new Bridge();
 		case CHAINBRIDGE:
-			task = new ChainBridge(this);
+			task = new ChainBridge();
 		case SWAMP:
-			task = new Swamp(this);
+			task = new Swamp();
 		case BOSS:
 			;
 		case ELEVATOR:
-			task = new Elevator(this);
+			task = new Elevator();
 
 		}
 		return task;

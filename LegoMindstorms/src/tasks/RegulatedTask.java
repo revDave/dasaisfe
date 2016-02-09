@@ -32,9 +32,7 @@ public abstract class RegulatedTask extends Task {
 
 	protected PID_Control pid;
 	
-	public RegulatedTask(Main main) {
-		super(main);
-
+	public RegulatedTask() {
 		pid = new PID_Control(getKC(), PC, DT);
 		pid.init(P_FACTOR, I_FACTOR, I_CONSTANT, D_FACTOR);
 		pid.setOffset(getOffset());

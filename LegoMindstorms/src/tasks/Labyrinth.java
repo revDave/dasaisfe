@@ -16,8 +16,7 @@ public class Labyrinth extends RegulatedTask {
 	//distance to wall
 	private final float WALL_THRESHOLD = 0.11f;
 	
-	public Labyrinth(Main main) {
-		super(main);
+	public Labyrinth() {
 		movement.setSpeeds(4.5, 180);
 	}
 	
