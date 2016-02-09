@@ -2,16 +2,22 @@ package test;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import tasks.Seesaw;
+import tasks.FinalBoss;
 
-public class TestSeesaw {
+public class TestFinalBoss {
 	public static void main(String[] args) {
-		Seesaw ss = new Seesaw();
+		
+		FinalBoss boss = new FinalBoss();
 		
 		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();
 		LCD.clear();
 		
-		ss.execute();
+		boss.execute();
+
+
+		
+		
+
 	}
 }
