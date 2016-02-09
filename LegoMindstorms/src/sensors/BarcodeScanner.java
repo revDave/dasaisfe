@@ -50,13 +50,19 @@ public class BarcodeScanner {
 	private ParkourStage mapLineCountToStage(int lineCount){
 		switch (lineCount) {
 		case 1:
+			return ParkourStage.IDLE;
 		case 2:
 			return ParkourStage.FOLLOWPATH;
 		case 3:
-		case 4:
-		case 5:
-		default:
 			return ParkourStage.BRIDGE;
+		case 4:
+			return ParkourStage.SEESAW;
+		case 5:
+			return ParkourStage.CHAINBRIDGE;
+		case 6:
+			return ParkourStage.BOSS;
+		default:
+			return ParkourStage.IDLE;
 		}
 	}
 
