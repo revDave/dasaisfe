@@ -78,13 +78,7 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getSensorValue() {
-		int numSamples = 3;
-		float result = 0;
-		for (int i = 0; i < numSamples; i++) {
-			result += colorSensor.getRedSensorValue();
-		}
-
-		return result / numSamples;
+		return colorSensor.getRedSensorValue();
 	}
 
 	@Override
