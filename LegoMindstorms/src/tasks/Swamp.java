@@ -17,8 +17,8 @@ public class Swamp extends RegulatedTask {
 	}
 
 	@Override
-	public void specificExecute() {
-		super.specificExecute();
+	public TaskState specificExecute() {
+		return super.specificExecute();
 	}
 
 	@Override

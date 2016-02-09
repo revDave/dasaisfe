@@ -21,7 +21,7 @@ public class Labyrinth extends RegulatedTask {
 	}
 	
 	
-	public void specificExecute() {		
+	public TaskState specificExecute() {		
 		// If the front sensor is pressed, a wall was hit, rotate to the left to
 		// dodge the wall and drive further
 		if (tactileSensor.frontIsPressed()) {
@@ -32,6 +32,7 @@ public class Labyrinth extends RegulatedTask {
 		} else {
 			super.specificExecute();
 		}
+		return TaskState.CONTINUE;
 	}
 
 

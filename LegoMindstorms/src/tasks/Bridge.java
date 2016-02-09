@@ -10,8 +10,9 @@ public class Bridge extends RegulatedTask {
 	}
 	
 	@Override
-	public void specificExecute() {
+	public TaskState specificExecute() {
 		super.specificExecute();
+		return TaskState.CONTINUE;
 	}
 
 	@Override

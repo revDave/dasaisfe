@@ -73,7 +73,7 @@ public abstract class RegulatedTask extends Task {
 	
 	// does the regulation
 	@Override
-	protected void specificExecute() {
+	protected TaskState specificExecute() {
 
 		// Get read from sensor
 		double value = getValueAndPrint();
@@ -87,7 +87,7 @@ public abstract class RegulatedTask extends Task {
 
 		turn = (invertCompensationDirection()) ? -turn : turn;
 		movement.steer(turn, false);
-		
+		return TaskState.CONTINUE;
 	}
 	
 	protected void specificExecuteReset() {
