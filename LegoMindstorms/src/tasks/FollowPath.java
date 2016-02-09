@@ -1,26 +1,22 @@
 package tasks;
 
-import sensors.DistanceSensor;
-import main.Main;
-import lejos.hardware.lcd.LCD;
-import control.modules.PID_Control;
-import lejos.hardware.Button;
 import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
 
 public class FollowPath extends RegulatedTask {
-	private double turn = 0;
-	private boolean iAmLost = true;
-	private int minLostTime = 5000;
-	private int currentLostTime = 0;
-	private Stopwatch finderWatch;
-	private Stopwatch lostWatch;
-	private float currentWheelSpeed = 0;
+	protected double turn = 0;
+	protected boolean iAmLost = true;
+	protected int minLostTime = 5000;
+	protected int currentLostTime = 0;
+	protected Stopwatch finderWatch;
+	protected Stopwatch lostWatch;
+	protected float currentWheelSpeed = 0;
+	protected float maxWheelSpeed = 2.5f;
 
 	public FollowPath() {
 		finderWatch = new Stopwatch();
 		lostWatch = new Stopwatch();
-		currentWheelSpeed = wheelSpeed;
+		currentWheelSpeed = maxWheelSpeed;
 		currentLostTime = minLostTime;
 
 		findline(false);
@@ -45,9 +41,9 @@ public class FollowPath extends RegulatedTask {
 		}
 
 		movement.setSpeeds(currentWheelSpeed, 120);
-		currentWheelSpeed = Math.min(wheelSpeed, currentWheelSpeed + 0.005f);
+		currentWheelSpeed = Math.min(maxWheelSpeed, currentWheelSpeed + 0.005f);
 		currentLostTime = Math.max(minLostTime, currentLostTime - 10);
-		return super.specificExecute();
+		return super.specificExecuteReset();
 	}
 
 	protected void findline(boolean reverse) {
@@ -93,7 +89,7 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getOffset() {
-		return 0.55f;
+		return 0.4f;
 	}
 
 	@Override
@@ -103,12 +99,12 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected double getIFactor() {
-		return 0.;
+		return 0.05;
 	}
 	
 	@Override
 	protected double getDFactor() {
-		return 10;
+		return 50;
 	}
 
 	@Override

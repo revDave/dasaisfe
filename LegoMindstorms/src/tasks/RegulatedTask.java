@@ -90,7 +90,7 @@ public abstract class RegulatedTask extends Task {
 		return TaskState.CONTINUE;
 	}
 	
-	protected void specificExecuteReset() {
+	protected TaskState specificExecuteReset() {
 
 		// Get read from sensor
 		double value = getValueAndPrint();
@@ -104,7 +104,7 @@ public abstract class RegulatedTask extends Task {
 
 		turn = (invertCompensationDirection()) ? -turn : turn;
 		movement.steer(turn, false);
-		
+		return TaskState.CONTINUE;
 	}
 	
 	private float getValueAndPrint() {
