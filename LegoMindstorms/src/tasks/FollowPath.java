@@ -83,12 +83,12 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getOffset() {
-		return 0.4f;
+		return 0.1f;
 	}
 
 	@Override
 	protected float getKC() {
-		return 666;
+		return 999;
 	}
 
 	@Override
