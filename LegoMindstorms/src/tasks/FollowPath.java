@@ -9,7 +9,7 @@ import sensors.DistanceSensor;
 public class FollowPath extends RegulatedTask {
 	protected double turn = 0;
 	protected boolean iAmLost = true;
-	protected int minLostTime = 1800;
+	protected int minLostTime = 2000;
 	protected int currentLostTime = 0;
 	protected Stopwatch finderWatch;
 	protected Stopwatch lostWatch;
@@ -35,13 +35,13 @@ public class FollowPath extends RegulatedTask {
 			if (lostWatch.elapsed() > currentLostTime) {
 				movement.quickStop();
 				iAmLost = true;
-				LCD.drawString("IAM FUCKING LOST!", 0, 2);
-				LCD.drawString("ON A FUCKING ISLAND!", 0, 3);
-				LCD.drawString("LIKE IN THIS TV SHOW!", 0, 4);
-				
-				LCD.drawString("Press button to start", 0, 1);
-				Button.waitForAnyPress();
-				LCD.clear();
+//				LCD.drawString("IAM FUCKING LOST!", 0, 2);
+//				LCD.drawString("ON A FUCKING ISLAND!", 0, 3);
+//				LCD.drawString("LIKE IN THIS TV SHOW!", 0, 4);
+//				
+//				LCD.drawString("Press button to start", 0, 1);
+//				Button.waitForAnyPress();
+//				LCD.clear();
 				
 				movement.steer(200,false);
 				lostWatch.reset();
@@ -51,7 +51,7 @@ public class FollowPath extends RegulatedTask {
 					}
 				}
 				if(iAmLost){
-					movement.rotateRight(110);
+					movement.rotateRight(100);
 					return TaskState.END;
 				}
 				movement.quickStop();

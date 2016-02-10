@@ -25,9 +25,9 @@ public class Elevator extends Task {
 			movement.rotateLeft(10);
 			movement.setSpeeds(1.75, 120);
 			movement.driveForward();
-			Delay.msDelay(4000);
+			Delay.msDelay(5000);
 			movement.rotateRight(15);
-			Delay.msDelay(3000);
+			Delay.msDelay(2000);
 			
 			movement.setSpeeds(3.5, 120);
 			movement.driveForward();

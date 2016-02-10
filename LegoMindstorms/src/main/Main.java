@@ -48,9 +48,10 @@ public class Main {
 		//this line
 		startNewTask(new Labyrinth());
 		
-		while (true) {
+		boolean continueMain = true;
+		while (continueMain) {
 			scanner = new BarcodeScanner(Movement.getInstance());
-			startNewTask(getTask());
+			continueMain = startNewTask(getTask()) != TaskState.KILL;
 		}
 	}
 
@@ -90,15 +91,16 @@ public class Main {
 		return task;
 	}
 
-	private void startNewTask(Task task) {
+	private TaskState startNewTask(Task task) {
 		if (task != null) {
 			if (runningTask != null) {
 				runningTask.stopTask();
 				runningTask = null;
 			}
 			runningTask = task;
-			runningTask.execute();
+			return runningTask.execute();
 		}
+		return TaskState.END;
 	}
 
 }
