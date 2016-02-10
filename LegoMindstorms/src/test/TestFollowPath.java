@@ -13,8 +13,12 @@ public class TestFollowPath extends TestBase{
 		LCD.drawString("CYKA BLYAT!", 2, 2);
 		LCD.drawString("CYKA BLYAT!", 4, 3);
 		LCD.drawString("CYKA BLYAT!", 6, 4);
+		
+		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();
 		LCD.clear();
+		
+		
 		FollowPath fp = new FollowPath();
 		
 		fp.execute();
