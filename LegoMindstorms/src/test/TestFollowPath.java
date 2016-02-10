@@ -9,10 +9,6 @@ import lejos.hardware.KeyListener;
 
 public class TestFollowPath extends TestBase{
 	public static void main(String[] args) {
-		LCD.drawString("CYKA BLYAT!", 0, 1);
-		LCD.drawString("CYKA BLYAT!", 2, 2);
-		LCD.drawString("CYKA BLYAT!", 4, 3);
-		LCD.drawString("CYKA BLYAT!", 6, 4);
 		
 		LCD.drawString("Press button to start", 0, 1);
 		Button.waitForAnyPress();

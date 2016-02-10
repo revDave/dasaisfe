@@ -70,6 +70,10 @@ public class FollowPath extends RegulatedTask {
 				movement.rotateLeft(40);
 				movement.travel(7);
 				movement.rotateRight(40);
+			} else {
+				movement.rotateLeft(20);
+				movement.travel(7);
+				movement.rotateRight(25);
 			}
 			
 			turn = 100;
