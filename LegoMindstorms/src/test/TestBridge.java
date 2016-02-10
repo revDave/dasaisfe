@@ -2,6 +2,8 @@ package test;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+import sensors.BarcodeScanner;
+import sensors.Movement;
 import tasks.Bridge;
 
 public class TestBridge {
@@ -14,10 +16,7 @@ public class TestBridge {
 		LCD.clear();
 		
 		bri.execute();
-
-
-		
-		
-
+		BarcodeScanner scanner = new BarcodeScanner(Movement.getInstance());
+		scanner.read();
 	}
 }
