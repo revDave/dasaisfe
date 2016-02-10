@@ -22,20 +22,21 @@ public abstract class Task {
 		distanceSensor = DistanceSensor.getInstance();
 	}
 
-	public void execute() {
+	public TaskState execute() {
 		TaskState specEx = specificExecute();
 		while (specEx == TaskState.CONTINUE) {
 			// main.readBarcode();
 			specEx = specificExecute();
 			if(Button.ESCAPE.isDown())
-				return;
+				return TaskState.KILL;
 		}
 		movement.quickStop();
 		
 		if (specEx == TaskState.KILL) {
 			movement.stop();
-			return;
 		}
+
+		return specEx;
 	}
 
 	public void stopTask() {

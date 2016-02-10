@@ -5,14 +5,21 @@ import main.Main;
 
 public class Bridge extends RegulatedTask {
 	public Bridge() {
-		movement.setSpeeds(6.5, 180);
+		movement.setSpeeds(6, 180);
 		movement.bowSensor();
 	}
 	
 	@Override
 	public TaskState specificExecute() {
 		super.specificExecute();
-		return TaskState.CONTINUE;
+		if(continueCurrentTask()){
+			return TaskState.CONTINUE;
+		} else {
+			movement.quickStop();
+			movement.unbowSensor();
+			Elevator e = new Elevator();
+			return e.specificExecute();
+		}
 	}
 
 	@Override
@@ -28,7 +35,7 @@ public class Bridge extends RegulatedTask {
 
 	@Override
 	protected float getOffset() {
-		return 0.08f;
+		return 0.07f;
 	}
 
 	@Override
@@ -43,8 +50,7 @@ public class Bridge extends RegulatedTask {
 
 	@Override
 	protected boolean continueCurrentTask() {
-		// TODO Auto-generated method stub
-		return false;
+		return !detectLine();
 	}
 
 }
