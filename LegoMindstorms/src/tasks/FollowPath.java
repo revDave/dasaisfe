@@ -27,7 +27,7 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected TaskState specificExecute() {
-		findline(true);
+		//findline(true);
 
 		// Get read from sensor
 		double sensorValue = getSensorValue();
@@ -35,13 +35,6 @@ public class FollowPath extends RegulatedTask {
 			if (lostWatch.elapsed() > currentLostTime) {
 				movement.quickStop();
 				iAmLost = true;
-//				LCD.drawString("IAM FUCKING LOST!", 0, 2);
-//				LCD.drawString("ON A FUCKING ISLAND!", 0, 3);
-//				LCD.drawString("LIKE IN THIS TV SHOW!", 0, 4);
-//				
-//				LCD.drawString("Press button to start", 0, 1);
-//				Button.waitForAnyPress();
-//				LCD.clear();
 				
 				movement.steer(200,false);
 				lostWatch.reset();
@@ -75,20 +68,13 @@ public class FollowPath extends RegulatedTask {
 		if (iAmLost) {
 			if (ds.getDistance() < 0.17) {
 				movement.rotateLeft(40);
-				movement.travel(2);
+				movement.travel(7);
 				movement.rotateRight(40);
 			}
-			if (reverse) {
-				movement.quickStop();
-				movement.steer(-turn, true);
-				Delay.msDelay(currentLostTime * 10 / 15);
-				movement.quickStop();
-				currentWheelSpeed = wheelSpeed - 2.f;
-				currentLostTime = minLostTime + 1500;
-			}
+			
 			turn = 100;
-			movement.setSpeeds(wheelSpeed, 120);
-			for (int i = 1000; i <= 2000; i = i + 200) {
+			movement.setSpeeds(wheelSpeed-0.5, 120);
+			for (int i = 1150; i <= 2000; i = i + 200) {
 				turn *= -1;
 				finderWatch.reset();
 				movement.steer(turn, false);
@@ -108,7 +94,9 @@ public class FollowPath extends RegulatedTask {
 
 	@Override
 	protected float getSensorValue() {
-		return colorSensor.getRedSensorValue();
+		float value = colorSensor.getRedSensorValue(); 
+		return value > 0.75f ? 0.75f : value;
+		
 	}
 
 	@Override

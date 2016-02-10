@@ -22,12 +22,12 @@ public class Elevator extends Task {
 			while(! com.requestElevator())
 				Delay.msDelay(50);
 
-			movement.rotateLeft(10);
+			movement.rotateLeft(20);
 			movement.setSpeeds(1.75, 120);
 			movement.driveForward();
-			Delay.msDelay(5000);
-			movement.rotateRight(15);
-			Delay.msDelay(2000);
+			Delay.msDelay(6000);
+			movement.rotateRight(20);
+			Delay.msDelay(1500);
 			
 			movement.setSpeeds(3.5, 120);
 			movement.driveForward();
@@ -39,7 +39,9 @@ public class Elevator extends Task {
 				Delay.msDelay(50);
 			
 			Delay.msDelay(7000);
-			movement.travel(7);
+			movement.rotateLeft(15);
+			movement.travel(9);
+			movement.rotateRight(15);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

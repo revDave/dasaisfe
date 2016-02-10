@@ -7,6 +7,7 @@ public class Bridge extends RegulatedTask {
 	public Bridge() {
 		movement.setSpeeds(6, 180);
 		movement.bowSensor();
+		movement.rotateLeft(15);
 	}
 	
 	@Override
