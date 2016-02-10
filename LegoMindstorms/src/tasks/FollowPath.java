@@ -45,13 +45,13 @@ public class FollowPath extends RegulatedTask {
 				
 				movement.steer(200,false);
 				lostWatch.reset();
-				while(lostWatch.elapsed() < 3400 && iAmLost){
+				while(lostWatch.elapsed() < 3000 && iAmLost){
 					if(detectLine()){
 						iAmLost = false;
 					}
 				}
 				if(iAmLost){
-					movement.rotateLeft(90);
+					movement.rotateRight(110);
 					return TaskState.END;
 				}
 				movement.quickStop();
@@ -75,7 +75,8 @@ public class FollowPath extends RegulatedTask {
 		if (iAmLost) {
 			if (ds.getDistance() < 0.17) {
 				movement.rotateLeft(40);
-				movement.travel(4);
+				movement.travel(2);
+				movement.rotateRight(40);
 			}
 			if (reverse) {
 				movement.quickStop();
