@@ -39,9 +39,7 @@ public class Elevator extends Task {
 				Delay.msDelay(50);
 			
 			Delay.msDelay(7000);
-			movement.rotateLeft(15);
-			movement.travel(9);
-			movement.rotateRight(15);
+			movement.travel(8);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
