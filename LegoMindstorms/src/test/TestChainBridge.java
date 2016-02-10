@@ -21,7 +21,7 @@ public class TestChainBridge {
 		Button.waitForAnyPress();
 		LCD.clear();
 		
-		//bri.execute();
+		bri.execute();
 		//BarcodeScanner scanner = new BarcodeScanner(Movement.getInstance());
 		//scanner.read();
 	}
