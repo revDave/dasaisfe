@@ -6,18 +6,24 @@ import sensors.DistanceSensor;
 
 public class FinalBossV2 extends RegulatedTask {
 	// max threshold
-	private final float FAR_AWAY_THRESHOLD = 0.70f;	
+	private final float FAR_AWAY_THRESHOLD = 0.6f;	
 	//distance to wall
-	private final float WALL_THRESHOLD = 0.50f;
+	private final float WALL_THRESHOLD = 0.4f;
 	boolean pink = false;
 	float valval = 0.0f;
 	
 	public FinalBossV2() {
-		movement.setSpeeds(9, 180);
+		movement.setSpeeds(20, 180);
+		movement.travel(15);
+		movement.quickStop();
+		movement.travel(-15);
+		movement.quickStop();
+		Delay.msDelay(4000);
 		movement.travel(10);
 		movement.rotateRight(45);
 		movement.travel(20);
 		movement.rotateLeft(60);
+		movement.travel(20);
 		movement.setSpeeds(4.5, 180);
 	}
 	
@@ -36,7 +42,7 @@ public class FinalBossV2 extends RegulatedTask {
 		valval = colorSensor.getColorSensorValue();
 		if (valval == 2.0) {
 			movement.quickStop();
-			movement.travel(5);
+			movement.travel(7);
 			return TaskState.KILL;
 		} else {
 			return TaskState.CONTINUE;
@@ -49,7 +55,7 @@ public class FinalBossV2 extends RegulatedTask {
 		
 		// Fit the sensor value, so we don´t get an infinity value
 		if(result > FAR_AWAY_THRESHOLD) {
-			result = 0.65f;
+			result = 0.6f;
 		}
 		
 		return result;
@@ -62,7 +68,7 @@ public class FinalBossV2 extends RegulatedTask {
 
 	//Turn of robot
 	protected float getKC() {
-		return 10;
+		return 250;
 	}
 
 	@Override
