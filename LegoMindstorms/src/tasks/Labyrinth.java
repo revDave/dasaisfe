@@ -77,8 +77,6 @@ public class Labyrinth extends RegulatedTask {
 
 	@Override
 	protected boolean continueCurrentTask() {
-		ColorSensor cs = ColorSensor.getInstance();
-		float red = cs.getRedSensorValue();
 		return !detectLine();
 	}
 
