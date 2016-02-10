@@ -9,6 +9,8 @@ public class ColorSensor {
 	
 	private static ColorSensor sensor = null;
 
+	private float[] samples = new float[1];
+
 	private ColorSensor(){
 		colorSensor = new EV3ColorSensor(SensorPort.S4);
 		colorSensor.setCurrentMode(colorSensor.getRedMode().getName());
@@ -32,17 +34,10 @@ public class ColorSensor {
 	
 	public float getRedSensorValue() {
 		SampleProvider intensity = colorSensor.getRedMode();
-		float samples[] = new float[intensity.sampleSize()];
 		
 		intensity.fetchSample(samples, 0);
 		
-		float result = 0;
-		
-		for(int i = 0; i < samples.length; i++) {
-			result += samples[i];
-		}
-		
-		return result / samples.length;
+		return samples[0];
 	}
 	
 }

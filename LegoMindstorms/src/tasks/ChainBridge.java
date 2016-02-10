@@ -7,62 +7,115 @@ import main.Main;
 
 public class ChainBridge extends RegulatedTask {
 	private boolean driveSlope = true;
-
-	private final float OFFSET_SLOPE = 0.15f;
-	private final float OFFSET_BRIDGE = 0.04f;
-
-	private float offset = OFFSET_SLOPE;
-
-	private float MAX_SENSOR = 0.28f;
 	
-	private TaskState state = TaskState.CONTINUE;
+	
+	private float OFFSET_1 = 0.12f;
+	private float OFFSET_2 = 0.15f;
 
-	public void specificExecute1() {
-		if (tactileSensor.frontIsPressed()) {
-			movement.bowSensor();
+	private float offset = OFFSET_1;
+	
 
-			offset = OFFSET_BRIDGE;
-			driveSlope = false;
+	private float MAX_SENSOR = 0.20f;
 
-		} else if (getSensorValue() < 0.08 && !driveSlope) {
-			offset = OFFSET_SLOPE;
-			driveSlope = true;
-		} else {
-			super.specificExecute();
-		}
+	private ChainBridgeState bridgeState = ChainBridgeState.FOLLOW1;
+
+	private boolean driveForward = false;
+
+	public ChainBridge() {
 	}
-	
-	public TaskState specificExecute() {
-		if (getCorrectSensorValue() > MAX_SENSOR) {
-			LCD.clearDisplay();
-			LCD.drawString(Float.toString(getCorrectSensorValue()), 0,1);
-			movement.stop();
-			movement.bowSensor();
-			movement.rotateLeft(10);
-			Delay.msDelay(500);
-			movement.driveForward();
-			Delay.msDelay(6000);
-			movement.stop();
-			offset = OFFSET_BRIDGE;
-			driveSlope = false;
 
-		} else if (getCorrectSensorValue() < 0.06 && !driveSlope) {
-			offset = OFFSET_SLOPE;
-			driveSlope = true;
+	@Override
+	protected TaskState specificExecute() {
+		LCD.drawString("State: " + bridgeState.toString(), 0, 0);
+		if (bridgeState.equals(ChainBridgeState.FOLLOW1)) {
+			if(getSensorValue() < MAX_SENSOR) {
+				bridgeState = ChainBridgeState.SLOPE1;
+				movement.stop();
+				
+				return TaskState.CONTINUE;
+			}
+			if(!tactileSensor.frontIsPressed()) {
+				movement.driveForward();
+			} else {
+				movement.driveBackward();
+				Delay.msDelay(1000);
+				movement.stop();
+				movement.rotateRight(90);
+				movement.driveForward();
+			}
+			return follow1Behaviour();
+		}
 
-			movement.stop();
-			movement.unbowSensor();
-			movement.driveForward();
-			Delay.msDelay(4000);
-			movement.stop();
+		if (bridgeState.equals(ChainBridgeState.SLOPE1)) {
+			return slope1Behaviour();
+		}
+
+		if (bridgeState.equals(ChainBridgeState.BRIDGE)) {
+			return bridgeBehaviour();
+		}
+
+		if (bridgeState.equals(ChainBridgeState.SLOPE2)) {
+			return slope2Behaviour();
+		}
+
+		return TaskState.CONTINUE;
+
+	}
+
+	private TaskState follow1Behaviour() {
+		if (getSensorValue() == MAX_SENSOR) {
+			//if (followPath != null)
+				//followPath.specificExecute();
+			
+		} else {
+			bridgeState = ChainBridgeState.SLOPE1;
+		}
+		return TaskState.CONTINUE;
+	}
+
+	private TaskState slope1Behaviour() {
+		if (getSensorValue() == MAX_SENSOR) {
+			bridgeState = ChainBridgeState.BRIDGE;
+			driveForward = true;
 		} else {
 			super.specificExecute();
 		}
+		return TaskState.CONTINUE;
+	}
+
+	private TaskState slope2Behaviour() {
+		boolean detected = detectLine();
+		Delay.msDelay(50);
 		
-		return state;
+		if (detected) {
+			movement.stop();
+			movement.travel(-4);
+			movement.stop();
+			return TaskState.END;
 
+		} else {
+			super.specificExecute();
+			return TaskState.CONTINUE;
+		}
 	}
-	
+
+	private TaskState bridgeBehaviour() {
+		if (getSensorValue() == MAX_SENSOR) {
+			if (driveForward) {
+				movement.rotateLeft(10);
+				Delay.msDelay(100);
+				movement.setSpeeds(5, 100);
+				movement.driveForward();
+				driveForward = false;
+			}
+		} else {
+			offset = OFFSET_2;
+			bridgeState = ChainBridgeState.SLOPE2;
+		}
+
+		return TaskState.CONTINUE;
+	}
+
 	private float getCorrectSensorValue() {
 		return DistanceSensor.getInstance().getDistance();
 	}
@@ -91,7 +144,7 @@ public class ChainBridge extends RegulatedTask {
 	protected float getLostThreshold() {
 		return 0;
 	}
-	
+
 	// Right direction
 	protected boolean invertCompensationDirection() {
 		return driveSlope;
