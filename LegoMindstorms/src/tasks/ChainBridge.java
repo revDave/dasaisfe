@@ -10,7 +10,7 @@ public class ChainBridge extends RegulatedTask {
 	
 	
 	private float OFFSET_1 = 0.12f;
-	private float OFFSET_2 = 0.15f;
+	private float OFFSET_2 = 0.12f;
 
 	private float offset = OFFSET_1;
 	
