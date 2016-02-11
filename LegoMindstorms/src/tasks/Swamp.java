@@ -50,8 +50,7 @@ public class Swamp extends RegulatedTask {
 
 	@Override
 	protected boolean continueCurrentTask() {
-		// TODO Auto-generated method stub
-		return false;
+		return ! detectLine();
 	}
 
 

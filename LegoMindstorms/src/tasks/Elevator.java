@@ -22,11 +22,11 @@ public class Elevator extends Task {
 			while(! com.requestElevator())
 				Delay.msDelay(50);
 
-			movement.rotateLeft(20);
+			movement.rotateLeft(27);
 			movement.setSpeeds(1.2, 120);
 			movement.driveForward();
 			Delay.msDelay(6000);
-			movement.rotateRight(20);
+			movement.rotateRight(27);
 			Delay.msDelay(1500);
 			
 			movement.setSpeeds(3.5, 120);
