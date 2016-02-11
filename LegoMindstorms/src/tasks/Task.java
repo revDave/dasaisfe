@@ -25,10 +25,20 @@ public abstract class Task {
 
 		Sound.setVolume(100);
 
-		File file = getSoundFile();
+		Thread sound = new Thread() {
+			
+			@Override
+			public void run() {
+				File file = getSoundFile();
 
-		if (file != null)
-			Sound.playSample(file);
+				if (file != null)
+					Sound.playSample(file);
+			}
+			
+	
+		};
+		sound.start();
+
 	}
 
 	public TaskState execute() {
