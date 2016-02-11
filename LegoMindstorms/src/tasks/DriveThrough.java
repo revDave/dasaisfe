@@ -6,28 +6,32 @@ import sensors.DistanceSensor;
 
 public class DriveThrough extends RegulatedTask {
 	// max threshold
-	private final float FAR_AWAY_THRESHOLD = 0.16f;	
+	private float farAwayThres = 0.16f;	
 	//distance to wall
-	private final float WALL_THRESHOLD = 0.11f;
+	private float wallThres = 0.11f;
+	private float offsetVal = 0.15f;
 	boolean pink = true;
 	//first time for detecting pink line
 	float val = 0.0f;
 	//second time for detecting pink line
 	float val2 = 0.0f;
 	boolean rosa = false;
+	boolean endboss = false;
 	float valval = 0.0f;
 	
 	public DriveThrough() {
-		movement.setSpeeds(9, 180);
+		movement.setSpeeds(20, 180);
 		movement.rotateRight(45);
 		movement.travel(20);
-		movement.rotateLeft(75);
+		movement.rotateLeft(60);
+		movement.setSpeeds(20, 180);
+		movement.travel(150);
 		movement.setSpeeds(4.5, 180);
 	}
 	
 	
 	public TaskState specificExecute() {	
-		if (!rosa) {
+		if (!rosa && !endboss) {
 			// If the front sensor is pressed, a wall was hit, rotate to the left to
 			// dodge the wall and drive further
 			if (tactileSensor.frontIsPressed()) {
@@ -56,20 +60,29 @@ public class DriveThrough extends RegulatedTask {
 			} 
 			return TaskState.CONTINUE;
 			
-		} else {
-				movement.setSpeeds(20, 180);
+		} else if (rosa && !endboss){
+				movement.rotateRight(20);
+				movement.setSpeeds(15, 180);
 				movement.travel(17);
 				movement.quickStop();
 				movement.travel(-17);
 				movement.quickStop();
 				Delay.msDelay(4000);
-				movement.travel(30);
+				movement.travel(50);
 				movement.rotateRight(45);
-				movement.travel(40);
+				movement.travel(20);
 				movement.rotateLeft(45);
-				movement.travel(40);
+				movement.travel(60);
 				movement.setSpeeds(4.5, 180);
-			
+				movement.quickStop();
+				
+				endboss = true;
+				farAwayThres = 0.70f;
+				wallThres = 0.55f;
+				offsetVal = 0.65f;
+				
+				return TaskState.CONTINUE;
+		} else {
 
 				if (tactileSensor.frontIsPressed()) {
 					movement.travel(-3);
@@ -90,6 +103,7 @@ public class DriveThrough extends RegulatedTask {
 					return TaskState.CONTINUE;
 				}
 		}
+	
 			
 	}
 			
@@ -125,8 +139,8 @@ public class DriveThrough extends RegulatedTask {
 		float result = DistanceSensor.getInstance().getDistance();
 		
 		// Fit the sensor value, so we don´t get an infinity value
-		if(result > FAR_AWAY_THRESHOLD) {
-			result = 0.15f;
+		if(result > farAwayThres) {
+			result = offsetVal;
 		}
 		
 		return result;
@@ -134,7 +148,7 @@ public class DriveThrough extends RegulatedTask {
 
 	//Distance to wall in meters
 	protected float getOffset() {
-		return WALL_THRESHOLD;
+		return wallThres;
 	}
 
 	//Turn of robot
