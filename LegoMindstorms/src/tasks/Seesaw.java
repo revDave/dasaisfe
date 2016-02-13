@@ -7,16 +7,21 @@ import sensors.Movement;
 
 public class Seesaw extends FollowPath{
 	public Seesaw(){
-		maxWheelSpeed = 4.f;
+		maxWheelSpeed = 5.f;
 		currentWheelSpeed = maxWheelSpeed;
-		Movement.getInstance().travel(15);
-		Movement.getInstance().rotateLeft(15);
 	}
 
+	@Override
+	protected TaskState specificExecute() {
+		Movement.getInstance().travel(15);
+		Movement.getInstance().rotateLeft(5);
+		return super.specificExecute();
+		
+	}
 
 	@Override
 	protected float getKC() {
-		return 400;
+		return 699;
 	}
 }
 

@@ -22,13 +22,13 @@ public class FollowPath extends RegulatedTask {
 		currentWheelSpeed = maxWheelSpeed;
 		currentLostTime = minLostTime;
 
-		findline(false);
+		//findline(false);
 	}
 
 	@Override
 	protected TaskState specificExecute() {
 		//findline(true);
-
+//		findline(false);
 		// Get read from sensor
 		double sensorValue = getSensorValue();
 		if (sensorValue < getLostThreshold()) {
